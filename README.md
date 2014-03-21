@@ -27,8 +27,8 @@ Keymap|movement
 ---|---
 [count] h|[count] position to left.
 [count] l|[count] position to right.
-^/0|first position.
-^/0|last position.
+^ or 0|first position.
+$|last position.
 \<ESC>|cancel moving.
 [other key]|choose now position.
 
