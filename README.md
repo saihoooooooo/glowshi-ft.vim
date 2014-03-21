@@ -86,7 +86,7 @@ You can install the plugin just copy "plugin" and "autoload" directories under y
 or
 
 * [Pathogen][1]
- * `git clone https://github.com/saihoooooooo/tasmaniandevil ~/.vim/bundle/tasmaniandevil`
+ * `git clone https://github.com/saihoooooooo/glowshi-ft.vim ~/.vim/bundle/glowshi-ft.vim`
 * [Vundle][2]
  * `Bundle 'saihoooooooo/glowshi-ft.vim'`
 * [NeoBundle][3]
