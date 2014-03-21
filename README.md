@@ -7,7 +7,7 @@ The basic behavior is the same as f, but when there are multiple letters in same
 Screencapture
 -----
 
-![myimage](doc/screencapture.git)
+![myimage](misc/screencapture.gif)
 
 Usage
 -----
