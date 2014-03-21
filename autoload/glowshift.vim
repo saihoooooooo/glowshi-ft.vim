@@ -76,7 +76,9 @@ function! glowshift#gs(till_before, direction, visualmode)
                 let selected = glowshift#choose_pos(poslist)
             endif
 
-            call glowshift#move(poslist, selected)
+            if selected != -1
+                call glowshift#move(poslist, selected)
+            endif
         endif
     endif
 
@@ -153,7 +155,7 @@ function! glowshift#choose_pos(poslist)
                 let vcount .= c
             endif
         elseif c == "\<ESC>"
-            return
+            return -1
         else
             break
         endif

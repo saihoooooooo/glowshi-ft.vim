@@ -29,7 +29,7 @@ xnoremap <silent> <plug>(glowshift-tv) :<C-u>call glowshift#gs_tv()<cr>
 noremap  <silent> <plug>(glowshift-T)  :<C-u>call glowshift#gs_T()<cr>
 xnoremap <silent> <plug>(glowshift-Tv) :<C-u>call glowshift#gs_Tv()<cr>
 
-if !get(g:, 'glowshift_no_default_key_mappings', 0)
+if !get(g:, 'glowshift_no_default_key_mappings', s:false)
     map  f <plug>(glowshift-f)
     xmap f <plug>(glowshift-fv)
     map  F <plug>(glowshift-F)
