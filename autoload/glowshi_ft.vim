@@ -9,46 +9,46 @@ let s:directions = {
 \     'left' : 2,
 \ }
 
-let s:till_before = ''
-let s:direction   = ''
-let s:visualmode  = ''
-let s:orig_ic     = ''
-let s:mode        = ''
+let s:till_before     = ''
+let s:direction       = ''
+let s:visualmode      = ''
+let s:orig_ignorecase = ''
+let s:mode            = ''
 
-function! glowshift#gs_f()
-    call glowshift#gs(s:false, s:directions.right, s:false)
+function! glowshi_ft#gs_f()
+    call glowshi_ft#gs(s:false, s:directions.right, s:false)
 endfunction
 
-function! glowshift#gs_fv()
-    call glowshift#gs(s:false, s:directions.right, s:true)
+function! glowshi_ft#gs_fv()
+    call glowshi_ft#gs(s:false, s:directions.right, s:true)
 endfunction
 
-function! glowshift#gs_F()
-    call glowshift#gs(s:false, s:directions.left, s:false)
+function! glowshi_ft#gs_F()
+    call glowshi_ft#gs(s:false, s:directions.left, s:false)
 endfunction
 
-function! glowshift#gs_Fv()
-    call glowshift#gs(s:false, s:directions.left, s:true)
+function! glowshi_ft#gs_Fv()
+    call glowshi_ft#gs(s:false, s:directions.left, s:true)
 endfunction
 
-function! glowshift#gs_t()
-    call glowshift#gs(s:true, s:directions.right, s:false)
+function! glowshi_ft#gs_t()
+    call glowshi_ft#gs(s:true, s:directions.right, s:false)
 endfunction
 
-function! glowshift#gs_tv()
-    call glowshift#gs(s:true, s:directions.right, s:true)
+function! glowshi_ft#gs_tv()
+    call glowshi_ft#gs(s:true, s:directions.right, s:true)
 endfunction
 
-function! glowshift#gs_T()
-    call glowshift#gs(s:true, s:directions.left, s:false)
+function! glowshi_ft#gs_T()
+    call glowshi_ft#gs(s:true, s:directions.left, s:false)
 endfunction
 
-function! glowshift#gs_Tv()
-    call glowshift#gs(s:true, s:directions.left, s:true)
+function! glowshi_ft#gs_Tv()
+    call glowshi_ft#gs(s:true, s:directions.left, s:true)
 endfunction
 
-function! glowshift#gs(till_before, direction, visualmode)
-    call glowshift#init()
+function! glowshi_ft#gs(till_before, direction, visualmode)
+    call glowshi_ft#init()
 
     let s:till_before = a:till_before
     let s:direction = a:direction
@@ -73,28 +73,28 @@ function! glowshift#gs(till_before, direction, visualmode)
 
             let selected = 0
             if len(poslist) > 1
-                let selected = glowshift#choose_pos(poslist)
+                let selected = glowshi_ft#choose_pos(poslist)
             endif
 
             if selected != -1
-                call glowshift#move(poslist, selected)
+                call glowshi_ft#move(poslist, selected)
             endif
         endif
     endif
 
-    call glowshift#clean()
+    call glowshi_ft#clean()
 endfunction
 
-function glowshift#init()
-    let s:orig_ic = &ignorecase
-    let &ignorecase = g:glowshift_ignorecase
+function glowshi_ft#init()
+    let s:orig_ignorecase = &ignorecase
+    let &ignorecase = g:glowshi_ft_ignorecase
 endfunction
 
-function glowshift#clean()
-    let &ignorecase = s:orig_ic
+function glowshi_ft#clean()
+    let &ignorecase = s:orig_ignorecase
 endfunction
 
-function! glowshift#choose_pos(poslist)
+function! glowshi_ft#choose_pos(poslist)
     let selected = 0
     if s:direction == s:directions.left
         call reverse(a:poslist)
@@ -111,7 +111,7 @@ function! glowshift#choose_pos(poslist)
             let row = pos[1]
             let col = pos[2]
 
-            if s:till_before == s:true && g:glowshift_t_highlight_exactly == s:true
+            if s:till_before == s:true && g:glowshi_ft_t_highlight_exactly == s:true
                 if s:direction == s:directions.right
                     let col -= 1
                 elseif s:direction == s:directions.left
@@ -126,8 +126,8 @@ function! glowshift#choose_pos(poslist)
             endif
         endfor
 
-        let match_selected = matchadd('GlowshiftSelected', regexp_selected)
-        let match_candidates = matchadd('GlowshiftCandidates', join(regexp_candidates, '\|'))
+        let match_selected = matchadd('GlowshiFtSelected', regexp_selected)
+        let match_candidates = matchadd('GlowshiFtCandidates', join(regexp_candidates, '\|'))
 
         redraw
 
@@ -164,7 +164,7 @@ function! glowshift#choose_pos(poslist)
     return selected
 endfunction
 
-function! glowshift#move(poslist, selected)
+function! glowshi_ft#move(poslist, selected)
     let pos = a:poslist[a:selected]
 
     if s:till_before == s:true
