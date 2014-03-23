@@ -1,0 +1,176 @@
+*glowshi-ft.txt*	improve movement of f/t with glow shift.
+
+Version: 0.0.0
+Author : saihoooooooo <saihoooooooo@gmail.com>
+License: So-called MIT/X license  {{{
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}}}
+
+==============================================================================
+CONTENTS						 *glowshi-ft-contents*
+
+INTRODUCTION			|glowshi-ft-introduction|
+INTERFACE			|glowshi-ft-interface|
+  KEY MAPPINGS			  |glowshi-ft-key-mappings|
+  ORIGINAL KEY MAPPINGS		  |glowshi-ft-original-key-mappings|
+SETTINGS			|glowshi-ft-settings|
+  VARIABLES			  |glowshi-ft-variables|
+CHANGELOG			|glowshi-ft-changelog|
+
+
+==============================================================================
+INTRODUCTION					     *glowshi-ft-introduction*
+
+glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is
+the same, but when there are multiple target in current line, you are able
+to choose and shift to position which glow (use |:highlight| command).
+
+
+==============================================================================
+INTERFACE						*glowshi-ft-interface*
+
+------------------------------------------------------------------------------
+KEY MAPPINGS					     *glowshi-ft-key-mappings*
+
+glowshi-ft's key mappings are defined for first action only. see
+|glowshi-ft-original-key-mappings| about other operation.
+
+<Plug>(glowshi-ft-f){char}				*<Plug>(glowshi-ft-f)*
+		Search for {char} towards right from cursor.
+
+<Plug>(glowshi-ft-F){char}				*<Plug>(glowshi-ft-F)*
+		Search for {char} towards left from cursor.
+
+<Plug>(glowshi-ft-t){char}				*<Plug>(glowshi-ft-t)*
+		Search for till before {char} towards right from cursor.
+
+<Plug>(glowshi-ft-T){char}				*<Plug>(glowshi-ft-T)*
+		Search for till after {char} towards left from cursor.
+
+------------------------------------------------------------------------------
+ORIGINAL KEY MAPPINGS			    *glowshi-ft-original-key-mappings*
+
+Original mechanism judges the following key and controls it, if current line
+has multiple target. (the following key mappings don't use |:map| command).
+
+h					  *glowshi-ft-original-key-mappings-h*
+		[count] position to the left. If there is cursor in the
+		left-side end, it move to the last.
+
+l					  *glowshi-ft-original-key-mappings-l*
+		[count] position to the right. If there is cursor in the
+		right-side end, it move to the first.
+
+^					  *glowshi-ft-original-key-mappings-^*
+		To the first.
+
+0					  *glowshi-ft-original-key-mappings-0*
+		Same as "^".
+
+$					  *glowshi-ft-original-key-mappings-$*
+		To the last.
+
+<ESC>					*glowshi-ft-original-key-mappings-esc*
+		Cancel moving.
+
+[other keys]	    		      *glowshi-ft-original-key-mappings-other*
+		Decide the position at the time of input.
+
+
+==============================================================================
+SETTINGS						 *glowshi-ft-settings*
+
+------------------------------------------------------------------------------
+VARIABLES						*glowshi-ft-variables*
+
+Use: >
+		let g:option_name = option_value
+
+to set them in your .vimrc.
+
+g:glowshi_ft_no_default_key_mappings	*g:glowshi_ft_no_default_key_mappings*
+		If you don't want default key mappings, define this variable
+		and set "1" before this plugin is loaded. When you map by
+		oneself, describe not only |:map| but also |:xmap| for Visual
+		mode.
+
+		e.g.
+>
+		map  <Leader>f <Plug>(glowshi-ft-f)
+		xmap <Leader>f <Plug>(glowshi-ft-f)
+		map  <Leader>F <Plug>(glowshi-ft-F)
+		xmap <Leader>F <Plug>(glowshi-ft-F)
+		map  <Leader>t <Plug>(glowshi-ft-t)
+		xmap <Leader>t <Plug>(glowshi-ft-t)
+		map  <Leader>T <Plug>(glowshi-ft-T)
+		xmap <Leader>T <Plug>(glowshi-ft-T)
+
+g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
+		Ignore case in search patterns like |'ignorecase'| option. The
+		default value is "0".
+
+g:glowshi_ft_t_highlight_exactly	    *g:glowshi_ft_t_highlight_exactly*
+		|<Plug>(glowshi-ft-F)| and |<Plug>(glowshi-ft-T)| highlight
+		an input character, but actual destination is just before that
+		or just after that. If you set this value to "1", highlight
+		the actual destination. The default value is "0".
+
+g:glowshi_ft_selected_hl_ctermfg	    *g:glowshi_ft_selected_hl_ctermfg*
+		Specify terminal vim color for selected position. The default
+		value is "Black".
+
+g:glowshi_ft_selected_hl_ctermbg	    *g:glowshi_ft_selected_hl_ctermbg*
+		Specify terminal vim background color for selected position.
+		The default value is "White".
+
+g:glowshi_ft_selected_hl_guifg		      *g:glowshi_ft_selected_hl_guifg*
+		Specify gui vim color for selected position. The default
+		value is "#000000".
+
+g:glowshi_ft_selected_hl_guibg		      *g:glowshi_ft_selected_hl_guibg*
+		Specify gui vim background color for selected position. The
+		default value is "#FFFFFF".
+
+g:glowshi_ft_candidates_hl_ctermfg	  *g:glowshi_ft_candidates_hl_ctermfg*
+		Specify terminal vim color for candidates of position. The
+		default value is "Black".
+
+g:glowshi_ft_candidates_hl_ctermbg	  *g:glowshi_ft_candidates_hl_ctermbg*
+		Specify terminal vim background color for candidates of
+		position. The default value is "Red".
+
+g:glowshi_ft_candidates_hl_guifg	    *g:glowshi_ft_candidates_hl_guifg*
+		Specify gui vim color for candidates of position. The default
+		value is "#000000".
+
+g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
+		Specify gui vim background color for candidates of position.
+		The default value is "#FF0000".
+
+
+==============================================================================
+CHANGELOG						*glowshi-ft-changelog*
+
+0.0.0	2014-03-23				  *glowshi-ft-changelog-0.0.0*
+	- Initial version.
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:fen:fdl=0:fdm=marker:
