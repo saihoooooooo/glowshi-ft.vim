@@ -21,23 +21,23 @@ let g:glowshi_ft_candidates_hl_guifg   = get(g:,'glowshi_ft_candidates_hl_guifg'
 let g:glowshi_ft_candidates_hl_guibg   = get(g:,'glowshi_ft_candidates_hl_guibg', '#FF0000')
 
 noremap  <silent><plug>(glowshi-ft-f)  :<C-u>call glowshi_ft#gs_f()<cr>
-xnoremap <silent><plug>(glowshi-ft-fv) :<C-u>call glowshi_ft#gs_fv()<cr>
+xnoremap <silent><plug>(glowshi-ft-f) :<C-u>call glowshi_ft#gs_fv()<cr>
 noremap  <silent><plug>(glowshi-ft-F)  :<C-u>call glowshi_ft#gs_F()<cr>
-xnoremap <silent><plug>(glowshi-ft-Fv) :<C-u>call glowshi_ft#gs_Fv()<cr>
+xnoremap <silent><plug>(glowshi-ft-F) :<C-u>call glowshi_ft#gs_Fv()<cr>
 noremap  <silent><plug>(glowshi-ft-t)  :<C-u>call glowshi_ft#gs_t()<cr>
-xnoremap <silent><plug>(glowshi-ft-tv) :<C-u>call glowshi_ft#gs_tv()<cr>
+xnoremap <silent><plug>(glowshi-ft-t) :<C-u>call glowshi_ft#gs_tv()<cr>
 noremap  <silent><plug>(glowshi-ft-T)  :<C-u>call glowshi_ft#gs_T()<cr>
-xnoremap <silent><plug>(glowshi-ft-Tv) :<C-u>call glowshi_ft#gs_Tv()<cr>
+xnoremap <silent><plug>(glowshi-ft-T) :<C-u>call glowshi_ft#gs_Tv()<cr>
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
     map  f <plug>(glowshi-ft-f)
-    xmap f <plug>(glowshi-ft-fv)
+    xmap f <plug>(glowshi-ft-f)
     map  F <plug>(glowshi-ft-F)
-    xmap F <plug>(glowshi-ft-Fv)
+    xmap F <plug>(glowshi-ft-F)
     map  t <plug>(glowshi-ft-t)
-    xmap t <plug>(glowshi-ft-tv)
+    xmap t <plug>(glowshi-ft-t)
     map  T <plug>(glowshi-ft-T)
-    xmap T <plug>(glowshi-ft-Tv)
+    xmap T <plug>(glowshi-ft-T)
 endif
 
 augroup GlowshiFt
