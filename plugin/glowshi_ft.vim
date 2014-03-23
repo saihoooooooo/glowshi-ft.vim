@@ -21,13 +21,13 @@ let g:glowshi_ft_candidates_hl_guifg   = get(g:,'glowshi_ft_candidates_hl_guifg'
 let g:glowshi_ft_candidates_hl_guibg   = get(g:,'glowshi_ft_candidates_hl_guibg', '#FF0000')
 
 noremap  <silent><plug>(glowshi-ft-f)  :<C-u>call glowshi_ft#gs_f()<cr>
-xnoremap <silent><plug>(glowshi-ft-f) :<C-u>call glowshi_ft#gs_fv()<cr>
+xnoremap <silent><plug>(glowshi-ft-f)  <ESC>:<C-u>call glowshi_ft#gs_fv()<cr>
 noremap  <silent><plug>(glowshi-ft-F)  :<C-u>call glowshi_ft#gs_F()<cr>
-xnoremap <silent><plug>(glowshi-ft-F) :<C-u>call glowshi_ft#gs_Fv()<cr>
+xnoremap <silent><plug>(glowshi-ft-F)  <ESC>:<C-u>call glowshi_ft#gs_Fv()<cr>
 noremap  <silent><plug>(glowshi-ft-t)  :<C-u>call glowshi_ft#gs_t()<cr>
-xnoremap <silent><plug>(glowshi-ft-t) :<C-u>call glowshi_ft#gs_tv()<cr>
+xnoremap <silent><plug>(glowshi-ft-t)  <ESC>:<C-u>call glowshi_ft#gs_tv()<cr>
 noremap  <silent><plug>(glowshi-ft-T)  :<C-u>call glowshi_ft#gs_T()<cr>
-xnoremap <silent><plug>(glowshi-ft-T) :<C-u>call glowshi_ft#gs_Tv()<cr>
+xnoremap <silent><plug>(glowshi-ft-T)  <ESC>:<C-u>call glowshi_ft#gs_Tv()<cr>
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
     map  f <plug>(glowshi-ft-f)

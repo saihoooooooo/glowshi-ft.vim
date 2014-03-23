@@ -9,10 +9,10 @@ let s:directions = {
 \     'left' : 2,
 \ }
 
+let s:orig_ignorecase = ''
 let s:till_before     = ''
 let s:direction       = ''
 let s:visualmode      = ''
-let s:orig_ignorecase = ''
 let s:mode            = ''
 
 function! glowshi_ft#gs_f()
@@ -51,18 +51,17 @@ function! glowshi_ft#gs(till_before, direction, visualmode)
     call glowshi_ft#init()
 
     let s:till_before = a:till_before
-    let s:direction = a:direction
-    let s:visualmode = a:visualmode
-
-    let s:mode = mode(1)
+    let s:direction   = a:direction
+    let s:visualmode  = a:visualmode
+    let s:mode        = mode(1)
+    let current_pos   = getpos('.')
 
     echo 'char: '
     let c = nr2char(getchar())
     echon c
 
     if len(c)
-        let current_pos = getpos('.')
-        let poslist = []
+        let poslist    = []
         let search_flg = (s:direction == s:directions.left) ? 'b' : ''
         while search("\\V" . c, search_flg, line('.'))
             call add(poslist, getpos('.'))
@@ -80,6 +79,10 @@ function! glowshi_ft#gs(till_before, direction, visualmode)
                 call glowshi_ft#move(poslist, selected)
             endif
         endif
+    endif
+
+    if getpos('.') == current_pos && s:visualmode == s:true
+        normal! gv
     endif
 
     call glowshi_ft#clean()
@@ -104,7 +107,7 @@ function! glowshi_ft#choose_pos(poslist)
     let vcount = 1
 
     while s:true
-        let regexp_selected = ''
+        let regexp_selected   = ''
         let regexp_candidates = []
 
         for pos in a:poslist
@@ -112,10 +115,10 @@ function! glowshi_ft#choose_pos(poslist)
             let col = pos[2]
 
             if s:till_before == s:true && g:glowshi_ft_t_highlight_exactly == s:true
-                if s:direction == s:directions.right
-                    let col -= 1
-                elseif s:direction == s:directions.left
+                if s:direction == s:directions.left
                     let col += 1
+                elseif s:direction == s:directions.right
+                    let col -= 1
                 endif
             endif
 
@@ -130,7 +133,6 @@ function! glowshi_ft#choose_pos(poslist)
         let match_candidates = matchadd('GlowshiFtCandidates', join(regexp_candidates, '\|'))
 
         redraw
-
         let c = nr2char(getchar())
 
         call matchdelete(match_selected)
@@ -168,10 +170,10 @@ function! glowshi_ft#move(poslist, selected)
     let pos = a:poslist[a:selected]
 
     if s:till_before == s:true
-        if s:direction == s:directions.right
-            let pos[2] -= 1
-        elseif s:direction == s:directions.left
+        if s:direction == s:directions.left
             let pos[2] += 1
+        elseif s:direction == s:directions.right
+            let pos[2] -= 1
         endif
     endif
 
@@ -180,7 +182,7 @@ function! glowshi_ft#move(poslist, selected)
             let pos[2] += 1
         endif
     elseif s:visualmode == s:true
-        normal! v
+        normal! gv
     endif
 
     call setpos('.', pos)
