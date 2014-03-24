@@ -91,7 +91,9 @@ $					  *glowshi-ft-original-key-mappings-$*
 		Cancel moving.
 
 [other keys]	    		      *glowshi-ft-original-key-mappings-other*
-		Decide the position at the time of input.
+		Decide the position at the time of input. In addition, take
+		the state that typed the key. For example, you will insert
+		mode with the exit if you press "i" on the candidate.
 
 
 ==============================================================================

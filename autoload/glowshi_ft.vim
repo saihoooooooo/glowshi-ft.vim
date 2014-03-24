@@ -9,12 +9,6 @@ let s:directions = {
 \     'left' : 2,
 \ }
 
-let s:orig_ignorecase = ''
-let s:till_before     = ''
-let s:direction       = ''
-let s:visualmode      = ''
-let s:mode            = ''
-
 function! glowshi_ft#gs_f()
     call glowshi_ft#gs(s:false, s:directions.right, s:false)
 endfunction
@@ -89,12 +83,20 @@ function! glowshi_ft#gs(till_before, direction, visualmode)
 endfunction
 
 function glowshi_ft#init()
+    let s:till_before     = ''
+    let s:direction       = ''
+    let s:visualmode      = ''
+    let s:mode            = ''
+    let s:feedkey         = ''
     let s:orig_ignorecase = &ignorecase
-    let &ignorecase = g:glowshi_ft_ignorecase
+    let &ignorecase       = g:glowshi_ft_ignorecase
 endfunction
 
 function glowshi_ft#clean()
     let &ignorecase = s:orig_ignorecase
+    if s:feedkey != ''
+        call feedkeys(s:feedkey)
+    endif
 endfunction
 
 function! glowshi_ft#choose_pos(poslist)
@@ -133,7 +135,10 @@ function! glowshi_ft#choose_pos(poslist)
         let match_candidates = matchadd('GlowshiFtCandidates', join(regexp_candidates, '\|'))
 
         redraw
-        let c = nr2char(getchar())
+        let c = getchar()
+        if type(c) == type(0)
+            let c = nr2char(c)
+        endif
 
         call matchdelete(match_selected)
         call matchdelete(match_candidates)
@@ -148,7 +153,7 @@ function! glowshi_ft#choose_pos(poslist)
             let selected = 0
         elseif c == '$'
             let selected = len(a:poslist) - 1
-        elseif c =~ '[0-9]'
+        elseif c =~ '^[0-9]$'
             if vcount < 10 && c != '0'
                 let vcount = c
             elseif c == '0'
@@ -159,6 +164,7 @@ function! glowshi_ft#choose_pos(poslist)
         elseif c == "\<ESC>"
             return -1
         else
+            let s:feedkey = c
             break
         endif
     endwhile
