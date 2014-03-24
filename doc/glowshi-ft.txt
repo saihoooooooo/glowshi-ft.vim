@@ -107,20 +107,16 @@ to set them in your .vimrc.
 
 g:glowshi_ft_no_default_key_mappings	*g:glowshi_ft_no_default_key_mappings*
 		If you don't want default key mappings, define this variable
-		and set "1" before this plugin is loaded. When you map by
-		oneself, describe not only |:map| but also |:xmap| for Visual
+		and set "1" before this plugin is loaded, and describe |:map|
+		command for Normal mode and Operator-pending mode and Visual
 		mode.
 
 		e.g.
 >
 		map  <Leader>f <Plug>(glowshi-ft-f)
-		xmap <Leader>f <Plug>(glowshi-ft-f)
 		map  <Leader>F <Plug>(glowshi-ft-F)
-		xmap <Leader>F <Plug>(glowshi-ft-F)
 		map  <Leader>t <Plug>(glowshi-ft-t)
-		xmap <Leader>t <Plug>(glowshi-ft-t)
 		map  <Leader>T <Plug>(glowshi-ft-T)
-		xmap <Leader>T <Plug>(glowshi-ft-T)
 
 g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The

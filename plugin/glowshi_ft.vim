@@ -31,13 +31,9 @@ xnoremap <silent><plug>(glowshi-ft-T)  <ESC>:<C-u>call glowshi_ft#gs_Tv()<cr>
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
     map  f <plug>(glowshi-ft-f)
-    xmap f <plug>(glowshi-ft-f)
     map  F <plug>(glowshi-ft-F)
-    xmap F <plug>(glowshi-ft-F)
     map  t <plug>(glowshi-ft-t)
-    xmap t <plug>(glowshi-ft-t)
     map  T <plug>(glowshi-ft-T)
-    xmap T <plug>(glowshi-ft-T)
 endif
 
 augroup GlowshiFt
