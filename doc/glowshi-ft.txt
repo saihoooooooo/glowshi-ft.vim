@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 0.0.0
+Version: 0.0.2
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -39,8 +39,8 @@ CHANGELOG			|glowshi-ft-changelog|
 INTRODUCTION					     *glowshi-ft-introduction*
 
 glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is
-the same, but when there are multiple target in current line, you are able
-to choose and shift to position which glow (use |:highlight| command).
+the same, but when there are multiple targets in the current line, you are
+able to choose and shift to candidates of position which glow.
 
 
 ==============================================================================
@@ -50,19 +50,19 @@ INTERFACE						*glowshi-ft-interface*
 KEY MAPPINGS					     *glowshi-ft-key-mappings*
 
 glowshi-ft's key mappings are defined for first action only. see
-|glowshi-ft-original-key-mappings| about other operation.
+|glowshi-ft-original-key-mappings| about another operation.
 
 <Plug>(glowshi-ft-f){char}				*<Plug>(glowshi-ft-f)*
-		Search for {char} towards right from cursor.
+		Search for {char} towards right from the cursor.
 
 <Plug>(glowshi-ft-F){char}				*<Plug>(glowshi-ft-F)*
-		Search for {char} towards left from cursor.
+		Search for {char} towards left from the cursor.
 
 <Plug>(glowshi-ft-t){char}				*<Plug>(glowshi-ft-t)*
-		Search for till before {char} towards right from cursor.
+		Search for till before {char} towards right from the cursor.
 
 <Plug>(glowshi-ft-T){char}				*<Plug>(glowshi-ft-T)*
-		Search for till after {char} towards left from cursor.
+		Search for till after {char} towards left from the cursor.
 
 ------------------------------------------------------------------------------
 ORIGINAL KEY MAPPINGS			    *glowshi-ft-original-key-mappings*
@@ -71,29 +71,34 @@ Original mechanism judges the following key and controls it, if current line
 has multiple target. (the following key mappings don't use |:map| command).
 
 h					  *glowshi-ft-original-key-mappings-h*
-		[count] position to the left. If there is cursor in the
-		left-side end, it move to the last.
+		[count] move to the left. If there is cursor in the left-side
+		end, it move to the last.
 
 l					  *glowshi-ft-original-key-mappings-l*
-		[count] position to the right. If there is cursor in the
+		[count] move to the right. If there is cursor in the
 		right-side end, it move to the first.
 
 ^					  *glowshi-ft-original-key-mappings-^*
-		To the first.
+		Move to the first.
 
 0					  *glowshi-ft-original-key-mappings-0*
 		Same as "^".
 
 $					  *glowshi-ft-original-key-mappings-$*
-		To the last.
+		Move to the last.
+
+<Enter>				      *glowshi-ft-original-key-mappings-enter*
+		Fix the position under the cursor. This key is modifiable. see
+		|g:glowshi_ft_fix_key|.
 
 <ESC>					*glowshi-ft-original-key-mappings-esc*
-		Cancel moving.
+		Cancel the moving. This key is modifiable. see
+		|g:glowshi_ft_cancel_key|.
 
 [other keys]	    		      *glowshi-ft-original-key-mappings-other*
-		Decide the position at the time of input. In addition, take
-		the state that typed the key. For example, you will insert
-		mode with the exit if you press "i" on the candidate.
+		In case inputting other keys, fix the position at the time,
+		and take the state that typed the key. For example, if you
+		press "i", you will insert mode on the position.
 
 
 ==============================================================================
@@ -113,7 +118,7 @@ g:glowshi_ft_no_default_key_mappings	*g:glowshi_ft_no_default_key_mappings*
 		command for Normal mode and Operator-pending mode and Visual
 		mode.
 
-		e.g.
+		e.g.)
 >
 		map  <Leader>f <Plug>(glowshi-ft-f)
 		map  <Leader>F <Plug>(glowshi-ft-F)
@@ -124,11 +129,22 @@ g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The
 		default value is "0".
 
-g:glowshi_ft_t_highlight_exactly	    *g:glowshi_ft_t_highlight_exactly*
+g:glowshi_ft_fix_key					*g:glowshi_ft_fix_key*
+		When the same key as the value that you set for this variable
+		is pressed, fix the position under the cursor. This variable
+		can not appoint modifier key alone. The default value is
+		"<Enter>".
+
+g:glowshi_ft_cancel_key				     *g:glowshi_ft_cancel_key*
+		When the same key as the value that you set for this variable
+		is pressed, cancel the moving. This variable can not appoint modifier key
+		alone. The default value is "<ESC>".
+
+g:glowshi_ft_t_highlight_actually	   *g:glowshi_ft_t_highlight_actually*
 		|<Plug>(glowshi-ft-F)| and |<Plug>(glowshi-ft-T)| highlight
 		an input character, but actual destination is just before that
 		or just after that. If you set this value to "1", highlight
-		the actual destination. The default value is "0".
+		it. The default value is "0".
 
 g:glowshi_ft_selected_hl_ctermfg	    *g:glowshi_ft_selected_hl_ctermfg*
 		Specify terminal vim color for selected position. The default
@@ -165,6 +181,12 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+0.0.2	2014-03-25				  *glowshi-ft-changelog-0.0.0*
+	- Add fix key and cancel key.
+
+0.0.1	2014-03-24				  *glowshi-ft-changelog-0.0.0*
+	- When press other keys, call feedkeys().
 
 0.0.0	2014-03-23				  *glowshi-ft-changelog-0.0.0*
 	- Initial version.

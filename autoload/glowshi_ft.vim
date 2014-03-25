@@ -116,7 +116,7 @@ function! glowshi_ft#choose_pos(poslist)
             let row = pos[1]
             let col = pos[2]
 
-            if s:till_before == s:true && g:glowshi_ft_t_highlight_exactly == s:true
+            if s:till_before == s:true && g:glowshi_ft_t_highlight_actually == s:true
                 if s:direction == s:directions.left
                     let col += 1
                 elseif s:direction == s:directions.right
@@ -161,7 +161,9 @@ function! glowshi_ft#choose_pos(poslist)
             else
                 let vcount .= c
             endif
-        elseif c == "\<ESC>"
+        elseif c == g:glowshi_ft_fix_key
+            break
+        elseif c == g:glowshi_ft_cancel_key
             return -1
         else
             let s:feedkey = c
