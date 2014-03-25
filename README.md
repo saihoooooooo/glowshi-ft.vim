@@ -1,4 +1,4 @@
-#glowshi-ft.txt
+#glowshi-ft.vim
 
 improve movement of f/t with glow shift.
 
