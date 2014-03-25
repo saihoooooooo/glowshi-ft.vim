@@ -166,7 +166,7 @@ function! glowshi_ft#choose_pos(poslist)
         elseif c == g:glowshi_ft_cancel_key
             return -1
         else
-            let s:feedkey = c
+            let s:feedkey = vcount . c
             break
         endif
     endwhile

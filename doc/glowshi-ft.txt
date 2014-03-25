@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 0.0.2
+Version: 0.0.3
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -181,6 +181,9 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+0.0.3	2014-03-25				  *glowshi-ft-changelog-0.0.3*
+	- When press other keys, it gives vcount.
 
 0.0.2	2014-03-25				  *glowshi-ft-changelog-0.0.2*
 	- Add fix key and cancel key.
