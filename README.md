@@ -1,85 +1,70 @@
-glowshi-ft.vim
-=============
+#glowshi-ft.txt
 
-glowshi-ft is glow shift for f/t(F/T).
-The basic behavior is the same as f, but when there are multiple letters in same line, you are able to choose position which glow (highlight).
+improve movement of f/t with glow shift.
 
-Screencapture
------
+##Introduction
+
+glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is the same, but when there are multiple targets in the current line, you are able to choose and shift to candidates of position which glow.
+
+##Screencapture
 
 ![myimage](misc/screencapture.gif)
 
-Usage
------
+##Interface
 
-The first keymap in nomal/operator/visual.
+###Key mappings
 
-Keymap|movement
----|---
-f{char}|search {char} to the right of the cursor.
-F{char}|search {char} to the left of the cursor.
-t{char}|till before f.
-T{char}|till after F.
-
-When there are multiple letters in same line.
+glowshi-ft's key mappings are defined for first action only. see [ORIGINAL KEY MAPPINGS][4] about another operation.
 
 Keymap|movement
 ---|---
-[count] h|[count] position to left.
-[count] l|[count] position to right.
-^ or 0|first position.
-$|last position.
-\<ESC>|cancel moving.
-[other key]|choose now position.
+&lt;Plug&gt;(glowshi-ft-f){char}|Search for {char} towards right from the cursor.
+&lt;Plug&gt;(glowshi-ft-F){char}|Search for {char} towards left from the cursor.
+&lt;Plug&gt;(glowshi-ft-t){char}|Search for till before {char} towards right from the cursor.
+&lt;Plug&gt;(glowshi-ft-T){char}|Search for till after {char} towards left from the cursor.
 
-customizing
------------
+###Original key mappings
 
-* g:glowshift_no_default_key_mappings
- * this value is 1 when dont set keymaps.
+Original mechanism judges the following key and controls it, if current line has multiple target. (the following key mappings don't use `:map` command).
 
-* g:glowshift_ignorecase
- * ignore case in glowfhi-ft search patterns.
- * default 0
+Keymap|movement
+---|---
+h|[count] move to the left. If there is cursor in the left-side end, it move to the last.
+l|[count] move to the right. If there is cursor in the right-side end, it move to the first.
+^|Move to the first.
+0|Same as "^".
+$|Move to the last.
+&lt;Enter&gt;|Fix the position under the cursor. This key is modifiable. see `g:glowshi_ft_fix_key`.|
+&lt;ESC&gt;|Cancel the moving. This key is modifiable. see `g:glowshi_ft_cancel_key`.
+[other keys]|In case inputting other keys, fix the position at the time, and take the state that typed the key. For example, if you press "i", you will insert mode on the position.
 
-* g:glowshift_t_highlight_exactly
- * highlight in t/T come to the position just before the target letter.
- * default 0
+##Settings
 
-* g:glowshift_selected_hl_ctermfg
- * color in position choosing.
- * default 'Black'
+###Variables
 
-* g:glowshift_selected_hl_ctermbg
- * background color in position choosing.
- * default 'White'
+Use:
+```vim
+let g:option_name = option_value
+```
+to set them in your .vimrc.
 
-* g:glowshift_selected_hl_guifg
- * color in position choosing (GUI).
- * default '#000000'
+Keymap|movement
+---|---
+g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.
+g:glowshi_ft_ignorecase|Ignore case in search patterns like `'ignorecase'` option. The default value is "0".
+g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. This variable can not appoint modifier key alone. The default value is "&lt;Enter&gt;".
+g:glowshi_ft_cancel_key|When the same key as the value that you set for this variable is pressed, cancel the moving. This variable can not appoint modifier key alone. The default value is "&lt;ESC&gt;".
+g:glowshi_ft_t_highlight_actually|`<Plug>(glowshi-ft-F)` and `<Plug>(glowshi-ft-T)` highlight an input character, but actual destination is just before that or just after that. If you set this value to "1", highlight it. The default value is "0".
+g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected position. The default value is "Black".
+g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position. The default value is "White".
+g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position. The default value is "#000000".
+g:glowshi_ft_selected_hl_guibg|Specify gui vim background color for selected position. The default value is "#FFFFFF".
+g:glowshi_ft_candidates_hl_ctermfg|Specify terminal vim color for candidates of position. The default value is "Black".
+g:glowshi_ft_candidates_hl_ctermbg|Specify terminal vim background color for candidates of position. The default value is "Red".
+g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of position. The default value is "#000000".
+g:glowshi_ft_candidates_hl_guibg|Specify gui vim background color for candidates of position. The default value is "#FF0000".
 
-* g:glowshift_selected_hl_guibg
- * background color in position choosing (GUI).
- * default '#FFFFFF'
-
-* g:glowshift_candidates_hl_ctermfg
- * color in position of candidates.
- * default 'Black'
-
-* g:glowshift_candidates_hl_ctermbg
- * background color in position of candidates(GUI).
- * default 'Red'
-
-* g:glowshift_candidates_hl_guifg
- * color in position of candidates(GUI).
- * default '#000000'
-
-* g:glowshift_candidates_hl_guibg
- * background color in position of candidates(GUI).
- * default '#FF0000'
-
-Installation
-------------
+## Installation
 
 You can install the plugin just copy "plugin" and "autoload" directories under your ~/.vim.
 
@@ -95,3 +80,4 @@ or
 [1]: https://github.com/tpope/vim-pathogen
 [2]: https://github.com/gmarik/vundle
 [3]: https://github.com/Shougo/neobundle.vim
+[4]: #original-key-mappings
