@@ -182,10 +182,10 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
 
-0.0.2	2014-03-25				  *glowshi-ft-changelog-0.0.0*
+0.0.2	2014-03-25				  *glowshi-ft-changelog-0.0.2*
 	- Add fix key and cancel key.
 
-0.0.1	2014-03-24				  *glowshi-ft-changelog-0.0.0*
+0.0.1	2014-03-24				  *glowshi-ft-changelog-0.0.1*
 	- When press other keys, call feedkeys().
 
 0.0.0	2014-03-23				  *glowshi-ft-changelog-0.0.0*
