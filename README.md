@@ -8,7 +8,7 @@ glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is the
 
 ##Screencapture
 
-![myimage](misc/screencapture.gif)
+![screencapture](http://gifzo.net/JEJkjm4LKP.gif)
 
 ##Interface
 
