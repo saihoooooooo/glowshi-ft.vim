@@ -10,9 +10,9 @@ let s:true  = !0
 let s:false = 0
 
 let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:false)
-let g:glowshi_ft_fix_key               = get(g:,'glowshi_ft_fix_key', "\<Enter>")
+let g:glowshi_ft_timeoutlen            = get(g:,'glowshi_ft_timeoutlen', 0)
+let g:glowshi_ft_fix_key               = get(g:,'glowshi_ft_fix_key', "[\<NL>\<CR>]")
 let g:glowshi_ft_cancel_key            = get(g:,'glowshi_ft_cancel_key', "\<ESC>")
-let g:glowshi_ft_t_highlight_actually  = get(g:,'glowshi_ft_t_highlight_actually', s:false)
 let g:glowshi_ft_selected_hl_ctermfg   = get(g:,'glowshi_ft_selected_hl_ctermfg', 'Black')
 let g:glowshi_ft_selected_hl_ctermbg   = get(g:,'glowshi_ft_selected_hl_ctermbg', 'White')
 let g:glowshi_ft_selected_hl_guifg     = get(g:,'glowshi_ft_selected_hl_guifg', '#000000')

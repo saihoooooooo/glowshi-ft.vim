@@ -52,9 +52,9 @@ Keymap|movement
 ---|---
 g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.
 g:glowshi_ft_ignorecase|Ignore case in search patterns like `'ignorecase'` option. The default value is "0".
-g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. This variable can not appoint modifier key alone. The default value is "&lt;Enter&gt;".
-g:glowshi_ft_cancel_key|When the same key as the value that you set for this variable is pressed, cancel the moving. This variable can not appoint modifier key alone. The default value is "&lt;ESC&gt;".
-g:glowshi_ft_t_highlight_actually|`<Plug>(glowshi-ft-F)` and `<Plug>(glowshi-ft-T)` highlight an input character, but actual destination is just before that or just after that. If you set this value to "1", highlight it. The default value is "0".
+g:glowshi_ft_timeoutlen|Time in milliseconds to determine the cursor position, like `'timeoutlen'` option. The default value is "0" (no limit).
+g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone. The default value is "[\&lt;NL&gt;\&lt;CR&gt;]" (enter key).
+g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving. The default value is "&lt;ESC&gt;".
 g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected position. The default value is "Black".
 g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position. The default value is "White".
 g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position. The default value is "#000000".
