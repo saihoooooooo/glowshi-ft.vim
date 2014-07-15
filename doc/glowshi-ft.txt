@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.0.2
+Version: 1.0.3
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -182,26 +182,29 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
 
-1.0.2	2014-07-15				  *glowshi-ft-changelog-1.0.2*
+1.0.3	2014-07-15
+	- Refactoring.
+
+1.0.2	2014-07-15
 	- Fixed the timing of the color scheme definition.
 
-1.0.1	2014-07-15				  *glowshi-ft-changelog-1.0.1*
+1.0.1	2014-07-15
 	- Clear cmdline in finally.
 
-1.0.0	2014-07-15				  *glowshi-ft-changelog-1.0.0*
+1.0.0	2014-07-15
 	- Refactoring.
 	- Add selection with timeout.
 
-0.0.3	2014-03-25				  *glowshi-ft-changelog-0.0.3*
+0.0.3	2014-03-25
 	- When press other keys, it gives vcount.
 
-0.0.2	2014-03-25				  *glowshi-ft-changelog-0.0.2*
+0.0.2	2014-03-25
 	- Add fix key and cancel key.
 
-0.0.1	2014-03-24				  *glowshi-ft-changelog-0.0.1*
+0.0.1	2014-03-24
 	- When press other keys, call feedkeys().
 
-0.0.0	2014-03-23				  *glowshi-ft-changelog-0.0.0*
+0.0.0	2014-03-23
 	- Initial version.
 
 

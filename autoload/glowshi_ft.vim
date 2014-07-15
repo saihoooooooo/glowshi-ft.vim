@@ -9,47 +9,27 @@ let s:DIRECTIONS = {
 \     'LEFT' : 2,
 \ }
 
-function! glowshi_ft#gs_f()
-    call s:init(s:FALSE, s:DIRECTIONS.RIGHT, s:FALSE)
+function! glowshi_ft#gs_f(visualmode)
+    call s:init(s:FALSE, s:DIRECTIONS.RIGHT, a:visualmode)
     call s:glowshi_ft()
 endfunction
 
-function! glowshi_ft#gs_fv()
-    call s:init(s:FALSE, s:DIRECTIONS.RIGHT, s:TRUE)
+function! glowshi_ft#gs_F(visualmode)
+    call s:init(s:FALSE, s:DIRECTIONS.LEFT, a:visualmode)
     call s:glowshi_ft()
 endfunction
 
-function! glowshi_ft#gs_F()
-    call s:init(s:FALSE, s:DIRECTIONS.LEFT, s:FALSE)
+function! glowshi_ft#gs_t(visualmode)
+    call s:init(s:TRUE, s:DIRECTIONS.RIGHT, a:visualmode)
     call s:glowshi_ft()
 endfunction
 
-function! glowshi_ft#gs_Fv()
-    call s:init(s:FALSE, s:DIRECTIONS.LEFT, s:TRUE)
+function! glowshi_ft#gs_T(visualmode)
+    call s:init(s:TRUE, s:DIRECTIONS.LEFT, a:visualmode)
     call s:glowshi_ft()
 endfunction
 
-function! glowshi_ft#gs_t()
-    call s:init(s:TRUE, s:DIRECTIONS.RIGHT, s:FALSE)
-    call s:glowshi_ft()
-endfunction
-
-function! glowshi_ft#gs_tv()
-    call s:init(s:TRUE, s:DIRECTIONS.RIGHT, s:TRUE)
-    call s:glowshi_ft()
-endfunction
-
-function! glowshi_ft#gs_T()
-    call s:init(s:TRUE, s:DIRECTIONS.LEFT, s:FALSE)
-    call s:glowshi_ft()
-endfunction
-
-function! glowshi_ft#gs_Tv()
-    call s:init(s:TRUE, s:DIRECTIONS.LEFT, s:TRUE)
-    call s:glowshi_ft()
-endfunction
-
-function s:init(till_before, direction, visualmode)
+function! s:init(till_before, direction, visualmode)
     let s:till_before = a:till_before
     let s:direction = a:direction
     let s:visualmode = a:visualmode
@@ -100,7 +80,7 @@ function! s:glowshi_ft()
     endtry
 endfunction
 
-function s:get_poslist(c)
+function! s:get_poslist(c)
     let poslist = []
     let flag = (s:direction == s:DIRECTIONS.LEFT) ? 'b' : ''
     while search("\\V" . a:c, flag, line('.'))
@@ -179,11 +159,11 @@ function! s:choose_pos(poslist)
     endtry
 endfunction
 
-function s:regexp(pos)
+function! s:regexp(pos)
     return printf('\%%%dl\%%%dc', a:pos[1], a:pos[2])
 endfunction
 
-function s:regexp_candidates(poslist)
+function! s:regexp_candidates(poslist)
     let pattern = []
     for pos in a:poslist
         call add(pattern, s:regexp(pos))
@@ -229,7 +209,7 @@ function! s:move(pos)
     call setpos('.', pos)
 endfunction
 
-function s:clean()
+function! s:clean()
     if getpos('.') == s:current_pos && s:visualmode == s:TRUE
         normal! gv
     endif
