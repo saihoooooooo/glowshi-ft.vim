@@ -216,7 +216,12 @@ function s:clean()
         normal! gv
     endif
     let &ignorecase = s:orig_ignorecase
-    redraw!
+    call s:clear_cmdline()
+endfunction
+
+function! s:clear_cmdline()
+    redraw
+    echo
 endfunction
 
 function! s:hide_cursor()
