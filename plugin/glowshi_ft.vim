@@ -31,11 +31,31 @@ xnoremap <silent><plug>(glowshi-ft-t)  <ESC>:<C-u>call glowshi_ft#gs_t(!0)<cr>
 noremap  <silent><plug>(glowshi-ft-T)  :<C-u>call glowshi_ft#gs_T(0)<cr>
 xnoremap <silent><plug>(glowshi-ft-T)  <ESC>:<C-u>call glowshi_ft#gs_T(!0)<cr>
 
+noremap  <silent><plug>(glowshi-ft-repeat)    :<C-u>call glowshi_ft#gs_repeat(0)<cr>
+xnoremap <silent><plug>(glowshi-ft-repeat)    <ESC>:<C-u>call glowshi_ft#gs_repeat(!0)<cr>
+noremap  <silent><plug>(glowshi-ft-opposite)  :<C-u>call glowshi_ft#gs_opposite(0)<cr>
+xnoremap <silent><plug>(glowshi-ft-opposite)  <ESC>:<C-u>call glowshi_ft#gs_opposite(!0)<cr>
+
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
-    map  f <plug>(glowshi-ft-f)
-    map  F <plug>(glowshi-ft-F)
-    map  t <plug>(glowshi-ft-t)
-    map  T <plug>(glowshi-ft-T)
+    try
+        map <unique>f <plug>(glowshi-ft-f)
+        map <unique>F <plug>(glowshi-ft-F)
+        map <unique>t <plug>(glowshi-ft-t)
+        map <unique>T <plug>(glowshi-ft-T)
+        map <unique>; <plug>(glowshi-ft-repeat)
+        map <unique>, <plug>(glowshi-ft-opposite)
+    catch /^Vim\%((\a\+)\)\=:E227/
+        try
+            unmap f
+            unmap F
+            unmap t
+            unmap T
+            unmap ;
+            unmap ,
+        catch
+        endtry
+        echoerr v:exception
+    endtry
 endif
 
 let &cpo = s:save_cpo

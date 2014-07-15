@@ -5,28 +5,49 @@ set cpo&vim
 let s:TRUE = !0
 let s:FALSE = 0
 let s:DIRECTIONS = {
-\     'RIGHT': 1,
-\     'LEFT' : 2,
+\     'RIGHT': 0,
+\     'LEFT' : 1,
 \ }
 
 function! glowshi_ft#gs_f(visualmode)
     call s:init(s:FALSE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft()
+    call s:glowshi_ft(s:TRUE)
 endfunction
 
 function! glowshi_ft#gs_F(visualmode)
     call s:init(s:FALSE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft()
+    call s:glowshi_ft(s:TRUE)
 endfunction
 
 function! glowshi_ft#gs_t(visualmode)
     call s:init(s:TRUE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft()
+    call s:glowshi_ft(s:TRUE)
 endfunction
 
 function! glowshi_ft#gs_T(visualmode)
     call s:init(s:TRUE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft()
+    call s:glowshi_ft(s:TRUE)
+endfunction
+
+function! glowshi_ft#gs_repeat(visualmode)
+    if !exists('s:c')
+        return
+    endif
+    call s:init(s:till_before, s:direction, a:visualmode)
+    call s:glowshi_ft(s:FALSE)
+endfunction
+
+function! glowshi_ft#gs_opposite(visualmode)
+    if !exists('s:c')
+        return
+    endif
+    try
+        let orig_direction = s:direction
+        call s:init(s:till_before, !s:direction, a:visualmode)
+        call s:glowshi_ft(s:FALSE)
+    finally
+        let s:direction = orig_direction
+    endtry
 endfunction
 
 function! s:init(till_before, direction, visualmode)
@@ -58,17 +79,20 @@ function! glowshi_ft#make_hl()
     endif
 endfunction
 
-function! s:glowshi_ft()
+function! s:glowshi_ft(getchar)
     try
         echo 'char: '
-        let c = nr2char(getchar())
-        echon c
+        if a:getchar == s:TRUE
+            let s:c = nr2char(getchar())
+        endif
+        echon s:c
 
-        let poslist = s:get_poslist(c)
+        let poslist = s:get_poslist()
 
         if len(poslist) > 0
             let pos = s:choose_pos(poslist)
             if type(pos) == type([])
+                call s:set_default_ftFT_history()
                 call s:move(pos)
                 if s:feedkey != ''
                     call feedkeys(s:feedkey)
@@ -80,10 +104,10 @@ function! s:glowshi_ft()
     endtry
 endfunction
 
-function! s:get_poslist(c)
+function! s:get_poslist()
     let poslist = []
     let flag = (s:direction == s:DIRECTIONS.LEFT) ? 'b' : ''
-    while search("\\V" . a:c, flag, line('.'))
+    while search("\\V" . s:c, flag, line('.'))
         call add(poslist, getpos('.'))
     endwhile
     call setpos('.', s:current_pos)
@@ -188,13 +212,29 @@ function! s:getchar_with_timeout()
     return key
 endfunction
 
+function! s:set_default_ftFT_history()
+    if s:direction == s:DIRECTIONS.RIGHT
+        if s:till_before == s:FALSE
+            execute 'normal! f' . s:c
+        elseif s:till_before == s:TRUE
+            execute 'normal! t' . s:c
+        endif
+    elseif s:direction == s:DIRECTIONS.LEFT
+        if s:till_before == s:FALSE
+            execute 'normal! F' . s:c
+        elseif s:till_before == s:TRUE
+            execute 'normal! T' . s:c
+        endif
+    endif
+endfunction
+
 function! s:move(pos)
     let pos = a:pos[:]
     if s:till_before == s:TRUE
-        if s:direction == s:DIRECTIONS.LEFT
-            let pos[2] +=1
-        elseif s:direction == s:DIRECTIONS.RIGHT
+        if s:direction == s:DIRECTIONS.RIGHT
             let pos[2] -=1
+        elseif s:direction == s:DIRECTIONS.LEFT
+            let pos[2] +=1
         endif
     endif
 

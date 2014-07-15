@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.0.3
+Version: 1.1.0
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -55,14 +55,20 @@ glowshi-ft's key mappings are defined for first action only. see
 <Plug>(glowshi-ft-f){char}				*<Plug>(glowshi-ft-f)*
 		Search for {char} towards right from the cursor.
 
-<Plug>(glowshi-ft-F){char}				*<Plug>(glowshi-ft-F)*
-		Search for {char} towards left from the cursor.
-
 <Plug>(glowshi-ft-t){char}				*<Plug>(glowshi-ft-t)*
 		Search for till before {char} towards right from the cursor.
 
+<Plug>(glowshi-ft-F){char}				*<Plug>(glowshi-ft-F)*
+		Search for {char} towards left from the cursor.
+
 <Plug>(glowshi-ft-T){char}				*<Plug>(glowshi-ft-T)*
 		Search for till after {char} towards left from the cursor.
+
+<plug>(glowshi-ft-repeat)			   *<Plug>(glowshi-ft-repeat)*
+		Repeat latest, like |;|.
+
+<plug>(glowshi-ft-opposite)			 *<Plug>(glowshi-ft-opposite)*
+		Repeat latest in opposite direction, like |,|.
 
 ------------------------------------------------------------------------------
 ORIGINAL KEY MAPPINGS			    *glowshi-ft-original-key-mappings*
@@ -124,6 +130,8 @@ g:glowshi_ft_no_default_key_mappings	*g:glowshi_ft_no_default_key_mappings*
 		map  <Leader>F <Plug>(glowshi-ft-F)
 		map  <Leader>t <Plug>(glowshi-ft-t)
 		map  <Leader>T <Plug>(glowshi-ft-T)
+		map  <Leader>; <Plug>(glowshi-ft-repeat)
+		map  <Leader>, <Plug>(glowshi-ft-opposite)
 
 g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The
@@ -181,6 +189,10 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.1.0	2014-07-16
+	- Added keymap for repeat latest (: and ,).
+	- Added <unique> argument to the :map in the default.
 
 1.0.3	2014-07-15
 	- Refactoring.

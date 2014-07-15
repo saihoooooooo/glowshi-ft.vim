@@ -16,18 +16,20 @@ glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is the
 
 glowshi-ft's key mappings are defined for first action only. see [ORIGINAL KEY MAPPINGS][4] about another operation.
 
-Keymap|movement
----|---
-&lt;Plug&gt;(glowshi-ft-f){char}|Search for {char} towards right from the cursor.
-&lt;Plug&gt;(glowshi-ft-F){char}|Search for {char} towards left from the cursor.
-&lt;Plug&gt;(glowshi-ft-t){char}|Search for till before {char} towards right from the cursor.
-&lt;Plug&gt;(glowshi-ft-T){char}|Search for till after {char} towards left from the cursor.
+keymap|real keymap|movement
+---|---|---
+f{char}|&lt;Plug&gt;(glowshi-ft-f){char}|Search for {char} towards right from the cursor.
+t{char}|&lt;Plug&gt;(glowshi-ft-t){char}|Search for till before {char} towards right from the cursor.
+F{char}|&lt;Plug&gt;(glowshi-ft-F){char}|Search for {char} towards left from the cursor.
+T{char}|&lt;Plug&gt;(glowshi-ft-T){char}|Search for till after {char} towards left from the cursor.
+;|&lt;Plug&gt;(glowshi-ft-repeat)|Repeat latest, like `;`.
+,|&lt;Plug&gt;(glowshi-ft-opposite)|Repeat latest in opposite direction, like `,`.
 
 ###Original key mappings
 
 Original mechanism judges the following key and controls it, if current line has multiple target. (the following key mappings don't use `:map` command).
 
-Keymap|movement
+keymap|movement
 ---|---
 h|[count] move to the left. If there is cursor in the left-side end, it move to the last.
 l|[count] move to the right. If there is cursor in the right-side end, it move to the first.
