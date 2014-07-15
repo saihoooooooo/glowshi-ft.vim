@@ -58,6 +58,24 @@ function s:init(till_before, direction, visualmode)
     let s:feedkey = ''
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
+    call glowshi_ft#make_hl()
+endfunction
+
+function! glowshi_ft#make_hl()
+    if !hlexists('GlowshiFtSelected')
+        execute 'highlight GlowshiFtSelected'
+\             . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
+\             . ' guifg=' . g:glowshi_ft_selected_hl_guifg
+\             . ' ctermbg=' . g:glowshi_ft_selected_hl_ctermbg
+\             . ' guibg=' . g:glowshi_ft_selected_hl_guibg
+    endif
+    if !hlexists('GlowshiFtCandidates')
+        execute 'highlight GlowshiFtCandidates'
+\             . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
+\             . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
+\             . ' ctermbg=' . g:glowshi_ft_candidates_hl_ctermbg
+\             . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
+    endif
 endfunction
 
 function! s:glowshi_ft()

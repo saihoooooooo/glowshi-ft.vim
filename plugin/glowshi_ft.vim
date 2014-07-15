@@ -38,19 +38,5 @@ if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
     map  T <plug>(glowshi-ft-T)
 endif
 
-augroup GlowshiFt
-    autocmd!
-    execute 'autocmd ColorScheme * highlight GlowshiFtSelected'
-\         . ' ctermfg=' .  g:glowshi_ft_selected_hl_ctermfg
-\         . ' guifg=' . g:glowshi_ft_selected_hl_guifg
-\         . ' ctermbg=' .  g:glowshi_ft_selected_hl_ctermbg
-\         . ' guibg=' . g:glowshi_ft_selected_hl_guibg
-    execute 'autocmd ColorScheme * highlight GlowshiFtCandidates'
-\         . ' ctermfg=' .  g:glowshi_ft_candidates_hl_ctermfg
-\         . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
-\         . ' ctermbg=' .  g:glowshi_ft_candidates_hl_ctermbg
-\         . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
-augroup END
-
 let &cpo = s:save_cpo
 unlet s:save_cpo
