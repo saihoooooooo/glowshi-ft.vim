@@ -6,10 +6,10 @@ let g:loaded_glowshi_ft = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:true  = !0
-let s:false = 0
+let s:TRUE  = !0
+let s:FALSE = 0
 
-let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:false)
+let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:FALSE)
 let g:glowshi_ft_timeoutlen            = get(g:,'glowshi_ft_timeoutlen', 0)
 let g:glowshi_ft_fix_key               = get(g:,'glowshi_ft_fix_key', "[\<NL>\<CR>]")
 let g:glowshi_ft_cancel_key            = get(g:,'glowshi_ft_cancel_key', "\<ESC>")
@@ -36,7 +36,7 @@ xnoremap <silent><plug>(glowshi-ft-repeat)    <ESC>:<C-u>call glowshi_ft#gs_repe
 noremap  <silent><plug>(glowshi-ft-opposite)  :<C-u>call glowshi_ft#gs_opposite(0)<cr>
 xnoremap <silent><plug>(glowshi-ft-opposite)  <ESC>:<C-u>call glowshi_ft#gs_opposite(!0)<cr>
 
-if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
+if !get(g:, 'glowshi_ft_no_default_key_mappings', s:FALSE)
     try
         map <unique>f <plug>(glowshi-ft-f)
         map <unique>F <plug>(glowshi-ft-F)
@@ -54,7 +54,7 @@ if !get(g:, 'glowshi_ft_no_default_key_mappings', s:false)
             unmap ,
         catch
         endtry
-        echoerr v:exception
+        echoerr matchstr(v:exception, 'E\d\+.*')
     endtry
 endif
 
