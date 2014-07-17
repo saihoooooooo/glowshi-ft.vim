@@ -50,21 +50,24 @@ let g:option_name = option_value
 ```
 to set them in your .vimrc.
 
-Keymap|movement
----|---
-g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.
-g:glowshi_ft_ignorecase|Ignore case in search patterns like `'ignorecase'` option. The default value is "0".
-g:glowshi_ft_timeoutlen|Time in milliseconds to determine the cursor position, like `'timeoutlen'` option. The default value is "0" (no limit).
-g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone. The default value is "[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key).
-g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving. The default value is "\\&lt;ESC&gt;".
-g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected position. The default value is "Black".
-g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position. The default value is "White".
-g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position. The default value is "#000000".
-g:glowshi_ft_selected_hl_guibg|Specify gui vim background color for selected position. The default value is "#FFFFFF".
-g:glowshi_ft_candidates_hl_ctermfg|Specify terminal vim color for candidates of position. The default value is "Black".
-g:glowshi_ft_candidates_hl_ctermbg|Specify terminal vim background color for candidates of position. The default value is "Red".
-g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of position. The default value is "#000000".
-g:glowshi_ft_candidates_hl_guibg|Specify gui vim background color for candidates of position. The default value is "#FF0000".
+Keymap|movement|default
+---|---|---
+g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.|-
+g:glowshi_ft_ignorecase|Ignore case in search patterns like `'ignorecase'` option.|0
+g:glowshi_ft_noslsearch|The highlight of search results is turned off temporarily.|1
+g:glowshi_ft_timeoutlen|Time in milliseconds to determine the cursor position, like `'timeoutlen'` option.|0 (no limit)
+g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone.|"[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key)
+g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving.|"\\&lt;ESC&gt;"
+g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected position.|"Black"
+g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position.|"White"
+g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position.|"#000000"
+g:glowshi_ft_selected_hl_guibg|Specify gui vim background color for selected position.|"#FFFFFF"
+g:glowshi_ft_selected_hl_link|When the highlight group of the value of this variable is defined, color for selected position links to it. see `:highlight-link`.<br /><br />Note: In the case of GUI, do not use "Cursor". Because setting of highlight is deleted temporarily.|""
+g:glowshi_ft_candidates_hl_ctermfg|Specify terminal vim color for candidates of position.|"Black"
+g:glowshi_ft_candidates_hl_ctermbg|Specify terminal vim background color for candidates of position.|"Red"
+g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of position.|"#000000"
+g:glowshi_ft_candidates_hl_guibg|Specify gui vim background color for candidates of position.|"#FF0000"
+g:glowshi_ft_candidates_hl_link|When the highlight group of the value of this variable is defined, color for candidates of position links to it. see `:highlight-link`.|""
 
 ## Installation
 

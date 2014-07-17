@@ -59,24 +59,6 @@ function! s:init(till_before, direction, visualmode)
     let s:feedkey = ''
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
-    call glowshi_ft#make_hl()
-endfunction
-
-function! glowshi_ft#make_hl()
-    if !hlexists('GlowshiFtSelected')
-        execute 'highlight GlowshiFtSelected'
-\             . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
-\             . ' guifg=' . g:glowshi_ft_selected_hl_guifg
-\             . ' ctermbg=' . g:glowshi_ft_selected_hl_ctermbg
-\             . ' guibg=' . g:glowshi_ft_selected_hl_guibg
-    endif
-    if !hlexists('GlowshiFtCandidates')
-        execute 'highlight GlowshiFtCandidates'
-\             . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
-\             . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
-\             . ' ctermbg=' . g:glowshi_ft_candidates_hl_ctermbg
-\             . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
-    endif
 endfunction
 
 function! s:glowshi_ft(getchar)
@@ -128,7 +110,11 @@ function! s:choose_pos(poslist)
 
     let vcount = 0
 
+    call glowshi_ft#highlight()
     let orig_cursor = s:hide_cursor()
+    if g:glowshi_ft_noslsearch == s:TRUE
+        let v:hlsearch = s:FALSE
+    endif
 
     try
         while s:TRUE
@@ -179,6 +165,9 @@ function! s:choose_pos(poslist)
 
         return a:poslist[selected]
     finally
+        if g:glowshi_ft_noslsearch == s:TRUE && &hlsearch == s:TRUE
+            call feedkeys(":set hlsearch | echo\<CR>", 'n')
+        endif
         call s:show_cursor(orig_cursor)
     endtry
 endfunction
@@ -260,6 +249,28 @@ endfunction
 function! s:clear_cmdline()
     redraw
     echo
+endfunction
+
+function! glowshi_ft#highlight()
+    if hlexists(g:glowshi_ft_selected_hl_link)
+        execute 'highlight! link GlowshiFtSelected ' . g:glowshi_ft_selected_hl_link
+    else
+        execute 'highlight GlowshiFtSelected'
+\             . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
+\             . ' guifg=' . g:glowshi_ft_selected_hl_guifg
+\             . ' ctermbg=' . g:glowshi_ft_selected_hl_ctermbg
+\             . ' guibg=' . g:glowshi_ft_selected_hl_guibg
+    endif
+
+    if hlexists(g:glowshi_ft_candidates_hl_link)
+        execute 'highlight! link GlowshiFtCandidates ' . g:glowshi_ft_candidates_hl_link
+    else
+        execute 'highlight GlowshiFtCandidates'
+\             . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
+\             . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
+\             . ' ctermbg=' . g:glowshi_ft_candidates_hl_ctermbg
+\             . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
+    endif
 endfunction
 
 function! s:hide_cursor()

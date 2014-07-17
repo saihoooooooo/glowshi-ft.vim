@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.1.0
+Version: 1.2.0
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -137,6 +137,10 @@ g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The
 		default value is "0".
 
+g:glowshi_ft_noslsearch				     *g:glowshi_ft_noslsearch*
+		The highlight of search results is turned off temporarily. The
+		default value is "1".
+
 g:glowshi_ft_timeoutlen				     *g:glowshi_ft_timeoutlen*
 		Time in milliseconds to determine the cursor position, like
 		|'timeoutlen'| option. The default value is "0" (no limit).
@@ -170,6 +174,14 @@ g:glowshi_ft_selected_hl_guibg		      *g:glowshi_ft_selected_hl_guibg*
 		Specify gui vim background color for selected position. The
 		default value is "#FFFFFF".
 
+g:glowshi_ft_selected_hl_link		       *g:glowshi_ft_selected_hl_link*
+		When the highlight group of the value of this variable is
+		defined, color for selected position links to it. see
+		|:highlight-link|. The default value is "".
+
+		Note: In the case of GUI, do not use "Cursor". Because setting
+		of highlight is deleted temporarily.
+
 g:glowshi_ft_candidates_hl_ctermfg	  *g:glowshi_ft_candidates_hl_ctermfg*
 		Specify terminal vim color for candidates of position. The
 		default value is "Black".
@@ -186,9 +198,17 @@ g:glowshi_ft_candidates_hl_guibg	    *g:glowshi_ft_candidates_hl_guibg*
 		Specify gui vim background color for candidates of position.
 		The default value is "#FF0000".
 
+g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
+		When the highlight group of the value of this variable is
+		defined, color for candidates of position links to it. see
+		|:highlight-link|. The default value is "".
+
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.0	2014-07-18
+	- Imploved highlight.
 
 1.1.0	2014-07-16
 	- Added keymap for repeat latest (: and ,).
