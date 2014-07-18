@@ -137,9 +137,11 @@ g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The
 		default value is "0".
 
-g:glowshi_ft_noslsearch				     *g:glowshi_ft_noslsearch*
+g:glowshi_ft_nohlsearch				     *g:glowshi_ft_nohlsearch*
 		The highlight of search results is turned off temporarily. The
 		default value is "1".
+
+		Note: If your Vim has |v:hlsearch|, you can use this option.
 
 g:glowshi_ft_timeoutlen				     *g:glowshi_ft_timeoutlen*
 		Time in milliseconds to determine the cursor position, like
