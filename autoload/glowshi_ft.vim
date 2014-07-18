@@ -109,10 +109,11 @@ function! s:choose_pos(poslist)
     endif
 
     let vcount = 0
+    let vhlsearch = v:hlsearch
 
     call glowshi_ft#highlight()
     let orig_cursor = s:hide_cursor()
-    if g:glowshi_ft_noslsearch == s:TRUE
+    if g:glowshi_ft_noslsearch == s:TRUE && vhlsearch == s:TRUE
         let v:hlsearch = s:FALSE
     endif
 
@@ -165,7 +166,7 @@ function! s:choose_pos(poslist)
 
         return a:poslist[selected]
     finally
-        if g:glowshi_ft_noslsearch == s:TRUE && &hlsearch == s:TRUE
+        if g:glowshi_ft_noslsearch == s:TRUE && vhlsearch == s:TRUE && &hlsearch == s:TRUE
             call feedkeys(":set hlsearch | echo\<CR>", 'n')
         endif
         call s:show_cursor(orig_cursor)

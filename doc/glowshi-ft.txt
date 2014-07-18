@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.0
+Version: 1.2.1
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -206,6 +206,9 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.1	2014-07-18
+	- Fixed highlight.
 
 1.2.0	2014-07-18
 	- Imploved highlight.
