@@ -54,7 +54,7 @@ Keymap|movement|default
 ---|---|---
 g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.|-
 g:glowshi_ft_ignorecase|Ignore case in search patterns like `'ignorecase'` option.|0
-g:glowshi_ft_nohlsearch|The highlight of search results is turned off temporarily.<br /><br />Note: If your Vim has `v:hlsearch`, you can use this option.|1
+g:glowshi_ft_nohlsearch|The highlight of search results is turned off temporarily.<br /><br />Note: If your vim has `v:hlsearch`, you can use this option (vim 7.4.079 or later).|1
 g:glowshi_ft_timeoutlen|Time in milliseconds to determine the cursor position, like `'timeoutlen'` option.|0 (no limit)
 g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone.|"[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key)
 g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving.|"\\&lt;ESC&gt;"
