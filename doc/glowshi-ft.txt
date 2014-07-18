@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.1
+Version: 1.2.2
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -206,6 +206,9 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.2	2014-07-18
+	- When press ; or , after t and T, s:glowshi_ft() checks cpo-;.
 
 1.2.1	2014-07-18
 	- Fixed highlight.

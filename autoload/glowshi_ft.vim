@@ -69,6 +69,13 @@ function! s:glowshi_ft(getchar)
         endif
         echon s:c
 
+        if a:getchar == s:FALSE && s:till_before == s:TRUE && has("patch-7.3.235") && &cpo !~ ';'
+            if s:direction == s:DIRECTIONS.RIGHT
+                normal! l
+            elseif s:direction == s:DIRECTIONS.LEFT
+                normal! h
+            endif
+        endif
         let poslist = s:get_poslist()
 
         if len(poslist) > 0
