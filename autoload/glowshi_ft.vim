@@ -259,8 +259,12 @@ function! s:clear_cmdline()
     echo
 endfunction
 
+function! s:hlexists(name)
+    return strlen(a:name) > 0 && hlexists(a:name)
+endfunction
+
 function! glowshi_ft#highlight()
-    if hlexists(g:glowshi_ft_selected_hl_link)
+    if s:hlexists(g:glowshi_ft_selected_hl_link)
         execute 'highlight! link GlowshiFtSelected ' . g:glowshi_ft_selected_hl_link
     else
         execute 'highlight GlowshiFtSelected'
@@ -270,7 +274,7 @@ function! glowshi_ft#highlight()
 \             . ' guibg=' . g:glowshi_ft_selected_hl_guibg
     endif
 
-    if hlexists(g:glowshi_ft_candidates_hl_link)
+    if s:hlexists(g:glowshi_ft_candidates_hl_link)
         execute 'highlight! link GlowshiFtCandidates ' . g:glowshi_ft_candidates_hl_link
     else
         execute 'highlight GlowshiFtCandidates'
