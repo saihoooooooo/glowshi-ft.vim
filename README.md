@@ -50,6 +50,8 @@ let g:option_name = option_value
 ```
 to set them in your .vimrc.
 
+#### basic
+
 Keymap|movement|default
 ---|---|---
 g:glowshi_ft_no_default_key_mappings|If you don't want default key mappings, define this variable and set "1" before this plugin is loaded, and describe `:map` command for Normal mode and Operator-pending mode and Visual mode.|-
@@ -58,6 +60,11 @@ g:glowshi_ft_nohlsearch|The highlight of search results is turned off temporaril
 g:glowshi_ft_timeoutlen|Time in milliseconds to determine the cursor position, like `'timeoutlen'` option.|0 (no limit)
 g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone.|"[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key)
 g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving.|"\\&lt;ESC&gt;"
+
+#### highlight
+
+Keymap|movement|default
+---|---|---
 g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected position.|"Black"
 g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position.|"White"
 g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position.|"#000000"
