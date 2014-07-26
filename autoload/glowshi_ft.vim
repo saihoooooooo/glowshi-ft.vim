@@ -69,7 +69,8 @@ function! s:glowshi_ft(getchar, vcount)
         endif
         echon s:c
 
-        if a:getchar == s:FALSE && s:till_before == s:TRUE && has("patch-7.3.235") && &cpo !~ ';'
+        if a:getchar == s:FALSE && s:till_before == s:TRUE
+\             && (v:version >= 704 || v:version == 703 && has("patch235")) && &cpo !~ ';'
             if s:direction == s:DIRECTIONS.RIGHT
                 normal! l
             elseif s:direction == s:DIRECTIONS.LEFT
