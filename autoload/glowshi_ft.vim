@@ -9,42 +9,42 @@ let s:DIRECTIONS = {
 \     'LEFT' : 1,
 \ }
 
-function! glowshi_ft#gs_f(visualmode)
+function! glowshi_ft#gs_f(visualmode, vcount)
     call s:init(s:FALSE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft(s:TRUE)
+    call s:glowshi_ft(s:TRUE, a:vcount)
 endfunction
 
-function! glowshi_ft#gs_F(visualmode)
+function! glowshi_ft#gs_F(visualmode, vcount)
     call s:init(s:FALSE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft(s:TRUE)
+    call s:glowshi_ft(s:TRUE, a:vcount)
 endfunction
 
-function! glowshi_ft#gs_t(visualmode)
+function! glowshi_ft#gs_t(visualmode, vcount)
     call s:init(s:TRUE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft(s:TRUE)
+    call s:glowshi_ft(s:TRUE, a:vcount)
 endfunction
 
-function! glowshi_ft#gs_T(visualmode)
+function! glowshi_ft#gs_T(visualmode, vcount)
     call s:init(s:TRUE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft(s:TRUE)
+    call s:glowshi_ft(s:TRUE, a:vcount)
 endfunction
 
-function! glowshi_ft#gs_repeat(visualmode)
+function! glowshi_ft#gs_repeat(visualmode, vcount)
     if !exists('s:c')
         return
     endif
     call s:init(s:till_before, s:direction, a:visualmode)
-    call s:glowshi_ft(s:FALSE)
+    call s:glowshi_ft(s:FALSE, a:vcount)
 endfunction
 
-function! glowshi_ft#gs_opposite(visualmode)
+function! glowshi_ft#gs_opposite(visualmode, vcount)
     if !exists('s:c')
         return
     endif
     try
         let orig_direction = s:direction
         call s:init(s:till_before, !s:direction, a:visualmode)
-        call s:glowshi_ft(s:FALSE)
+        call s:glowshi_ft(s:FALSE, a:vcount)
     finally
         let s:direction = orig_direction
     endtry
@@ -61,7 +61,7 @@ function! s:init(till_before, direction, visualmode)
     let &ignorecase = g:glowshi_ft_ignorecase
 endfunction
 
-function! s:glowshi_ft(getchar)
+function! s:glowshi_ft(getchar, vcount)
     try
         echo 'char: '
         if a:getchar == s:TRUE
@@ -79,7 +79,7 @@ function! s:glowshi_ft(getchar)
         let poslist = s:get_poslist()
 
         if len(poslist) > 0
-            let pos = s:choose_pos(poslist)
+            let pos = s:choose_pos(poslist, a:vcount)
             if type(pos) == type([])
                 call s:set_default_ftFT_history()
                 call s:move(pos)
@@ -103,16 +103,24 @@ function! s:get_poslist()
     return poslist
 endfunction
 
-function! s:choose_pos(poslist)
+function! s:choose_pos(poslist, default)
     if len(a:poslist) == 1
-        return a:poslist[0]
+        return (a:default <= 1) ? a:poslist[0] : s:FALSE
     endif
 
     if s:direction == s:DIRECTIONS.RIGHT
-        let selected = 0
+        let selected = (a:default <= 1) ? 0 : a:default - 1
     elseif s:direction == s:DIRECTIONS.LEFT
         call reverse(a:poslist)
-        let selected = len(a:poslist) - 1
+        let selected = (a:default <= 1) ? len(a:poslist) - 1 : len(a:poslist) - a:default
+    endif
+
+    if selected < 0 || selected > len(a:poslist) - 1
+        return s:FALSE
+    endif
+
+    if a:default > 0 && g:glowshi_ft_vcount_forced_landing == s:TRUE
+        return a:poslist[selected]
     endif
 
     let vcount = 0
@@ -162,7 +170,7 @@ function! s:choose_pos(poslist)
             elseif c =~ g:glowshi_ft_fix_key
                 break
             elseif c =~ g:glowshi_ft_cancel_key
-                return
+                return s:FALSE
             else
                 if c != ''
                     let s:feedkey = ((vcount > 1) ? vcount : '') . c

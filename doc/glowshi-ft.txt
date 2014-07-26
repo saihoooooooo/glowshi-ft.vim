@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.2
+Version: 1.2.3
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -148,6 +148,10 @@ g:glowshi_ft_timeoutlen				     *g:glowshi_ft_timeoutlen*
 		Time in milliseconds to determine the cursor position, like
 		|'timeoutlen'| option. The default value is "0" (no limit).
 
+g:glowshi_ft_vcount_forced_landing	  *g:glowshi_ft_vcount_forced_landing*
+		When you pass |v:count|, it forced landing to {char} of N-th.
+		For example, "2fa". The default value is "0".
+
 g:glowshi_ft_fix_key					*g:glowshi_ft_fix_key*
 		When the same key as the value that you set for this variable
 		is pressed, fix the position under the cursor. Regular
@@ -209,6 +213,9 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.3	2014-07-18
+	- Support |v:count|.
 
 1.2.2	2014-07-18
 	- When press ; or , after t and T, s:glowshi_ft() checks cpo-;.

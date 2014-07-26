@@ -12,6 +12,7 @@ let s:FALSE = 0
 let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:FALSE)
 let g:glowshi_ft_nohlsearch            = get(g:,'glowshi_ft_nohlsearch', s:TRUE)
 let g:glowshi_ft_timeoutlen            = get(g:,'glowshi_ft_timeoutlen', 0)
+let g:glowshi_ft_vcount_forced_landing = get(g:,'glowshi_ft_vcount_forced_landing', s:FALSE)
 let g:glowshi_ft_fix_key               = get(g:,'glowshi_ft_fix_key', "[\<NL>\<CR>]")
 let g:glowshi_ft_cancel_key            = get(g:,'glowshi_ft_cancel_key', "\<ESC>")
 let g:glowshi_ft_selected_hl_ctermfg   = get(g:,'glowshi_ft_selected_hl_ctermfg', 'Black')
@@ -25,19 +26,19 @@ let g:glowshi_ft_candidates_hl_guifg   = get(g:,'glowshi_ft_candidates_hl_guifg'
 let g:glowshi_ft_candidates_hl_guibg   = get(g:,'glowshi_ft_candidates_hl_guibg', '#FF0000')
 let g:glowshi_ft_candidates_hl_link    = get(g:,'glowshi_ft_candidates_hl_link', '')
 
-noremap  <silent><plug>(glowshi-ft-f)  :<C-u>call glowshi_ft#gs_f(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-f)  <ESC>:<C-u>call glowshi_ft#gs_f(!0)<cr>
-noremap  <silent><plug>(glowshi-ft-F)  :<C-u>call glowshi_ft#gs_F(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-F)  <ESC>:<C-u>call glowshi_ft#gs_F(!0)<cr>
-noremap  <silent><plug>(glowshi-ft-t)  :<C-u>call glowshi_ft#gs_t(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-t)  <ESC>:<C-u>call glowshi_ft#gs_t(!0)<cr>
-noremap  <silent><plug>(glowshi-ft-T)  :<C-u>call glowshi_ft#gs_T(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-T)  <ESC>:<C-u>call glowshi_ft#gs_T(!0)<cr>
+noremap  <silent><plug>(glowshi-ft-f)        :<C-u>call glowshi_ft#gs_f(0, v:count)<CR>
+noremap  <silent><plug>(glowshi-ft-F)        :<C-u>call glowshi_ft#gs_F(0, v:count)<CR>
+noremap  <silent><plug>(glowshi-ft-t)        :<C-u>call glowshi_ft#gs_t(0, v:count)<CR>
+noremap  <silent><plug>(glowshi-ft-T)        :<C-u>call glowshi_ft#gs_T(0, v:count)<CR>
+noremap  <silent><plug>(glowshi-ft-repeat)   :<C-u>call glowshi_ft#gs_repeat(0, v:count)<CR>
+noremap  <silent><plug>(glowshi-ft-opposite) :<C-u>call glowshi_ft#gs_opposite(0, v:count)<CR>
 
-noremap  <silent><plug>(glowshi-ft-repeat)    :<C-u>call glowshi_ft#gs_repeat(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-repeat)    <ESC>:<C-u>call glowshi_ft#gs_repeat(!0)<cr>
-noremap  <silent><plug>(glowshi-ft-opposite)  :<C-u>call glowshi_ft#gs_opposite(0)<cr>
-xnoremap <silent><plug>(glowshi-ft-opposite)  <ESC>:<C-u>call glowshi_ft#gs_opposite(!0)<cr>
+xnoremap <expr><silent><plug>(glowshi-ft-f)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_f(!0, %d)\<CR>", v:count)
+xnoremap <expr><silent><plug>(glowshi-ft-F)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_F(!0, %d)\<CR>", v:count)
+xnoremap <expr><silent><plug>(glowshi-ft-t)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_t(!0, %d)\<CR>", v:count)
+xnoremap <expr><silent><plug>(glowshi-ft-T)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_T(!0, %d)\<CR>", v:count)
+xnoremap <expr><silent><plug>(glowshi-ft-repeat)   printf("\<ESC>:\<C-u>call glowshi_ft#gs_repeat(!0, %d)\<CR>", v:count)
+xnoremap <expr><silent><plug>(glowshi-ft-opposite) printf("\<ESC>:\<C-u>call glowshi_ft#gs_opposite(!0, %d)\<CR>", v:count)
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:FALSE)
     try
