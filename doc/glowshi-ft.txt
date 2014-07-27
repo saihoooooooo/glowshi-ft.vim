@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.3
+Version: 1.2.4
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -214,7 +214,10 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
 
-1.2.3	2014-07-18
+1.2.4	2014-07-28
+	- Fixed movement of omap.
+
+1.2.3	2014-07-26
 	- Support |v:count|.
 
 1.2.2	2014-07-18

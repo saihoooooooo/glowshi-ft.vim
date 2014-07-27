@@ -63,12 +63,13 @@ endfunction
 
 function! s:glowshi_ft(getchar, vcount)
     try
-        echo 'char: '
         if a:getchar == s:TRUE
+            echo 'char: '
             let s:c = nr2char(getchar())
+            redraw
         endif
-        echon s:c
 
+        " cpo-;
         if a:getchar == s:FALSE && s:till_before == s:TRUE
 \             && (v:version >= 704 || v:version == 703 && has("patch235")) && &cpo !~ ';'
             if s:direction == s:DIRECTIONS.RIGHT
@@ -77,6 +78,7 @@ function! s:glowshi_ft(getchar, vcount)
                 normal! h
             endif
         endif
+
         let poslist = s:get_poslist()
 
         if len(poslist) > 0
@@ -132,6 +134,8 @@ function! s:choose_pos(poslist, default)
     if g:glowshi_ft_nohlsearch == s:TRUE && vhlsearch == s:TRUE
         let v:hlsearch = s:FALSE
     endif
+
+    echo 'char: ' . s:c
 
     try
         while s:TRUE
@@ -232,6 +236,7 @@ function! s:set_default_ftFT_history()
             execute 'normal! T' . s:c
         endif
     endif
+    call setpos('.', s:current_pos)
 endfunction
 
 function! s:move(pos)
@@ -245,9 +250,10 @@ function! s:move(pos)
     endif
 
     if s:mode == 'no'
-        if s:direction == s:DIRECTIONS.RIGHT
-            let pos[2] += 1
+        if s:direction == s:DIRECTIONS.LEFT
+            normal! h
         endif
+        normal! v
     elseif s:visualmode == s:TRUE
         normal! gv
     endif
@@ -264,7 +270,6 @@ function! s:clean()
 endfunction
 
 function! s:clear_cmdline()
-    redraw
     echo
 endfunction
 
