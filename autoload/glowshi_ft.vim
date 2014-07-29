@@ -160,10 +160,10 @@ function! s:choose_pos(poslist, default)
             call matchdelete(match_selected)
             call matchdelete(match_candidates)
 
-            if c == 'h'
+            if c ==# 'h'
                 let selected = (selected - ((vcount > 0) ? vcount : 1) + len(a:poslist)) % len(a:poslist)
                 let vcount = 0
-            elseif c == 'l'
+            elseif c ==# 'l'
                 let selected = (selected + ((vcount > 0) ? vcount : 1)) % len(a:poslist)
                 let vcount = 0
             elseif c == '^'
@@ -180,9 +180,9 @@ function! s:choose_pos(poslist, default)
                 else
                     let vcount .= c
                 endif
-            elseif c =~ g:glowshi_ft_fix_key
+            elseif c =~# g:glowshi_ft_fix_key
                 break
-            elseif c =~ g:glowshi_ft_cancel_key
+            elseif c =~# g:glowshi_ft_cancel_key
                 return s:FALSE
             else
                 if c != ''
