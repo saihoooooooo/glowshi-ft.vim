@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.5
+Version: 1.2.6
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -137,6 +137,10 @@ g:glowshi_ft_ignorecase				     *g:glowshi_ft_ignorecase*
 		Ignore case in search patterns like |'ignorecase'| option. The
 		default value is "0".
 
+g:glowshi_ft_smartcase				      *g:glowshi_ft_smartcase*
+		Smart case in search patterns like |'smartcase'| option. The
+		default value is "0".
+
 g:glowshi_ft_nohlsearch				     *g:glowshi_ft_nohlsearch*
 		The highlight of search results is turned off temporarily. The
 		default value is "1".
@@ -213,6 +217,9 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.6	2014-07-29
+	- Added g:glowshi_ft_smartcase.
 
 1.2.5	2014-07-29
 	- Fixed |getchar()| (care of special key).

@@ -59,6 +59,8 @@ function! s:init(till_before, direction, visualmode)
     let s:feedkey = ''
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
+    let s:orig_smartcase = &smartcase
+    let &smartcase = g:glowshi_ft_smartcase
 endfunction
 
 function! s:glowshi_ft(getchar, vcount)
@@ -272,6 +274,7 @@ function! s:clean()
         normal! gv
     endif
     let &ignorecase = s:orig_ignorecase
+    let &smartcase = s:orig_smartcase
     call s:clear_cmdline()
 endfunction
 

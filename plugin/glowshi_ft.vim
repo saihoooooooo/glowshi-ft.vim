@@ -10,6 +10,7 @@ let s:TRUE  = !0
 let s:FALSE = 0
 
 let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:FALSE)
+let g:glowshi_ft_smartcase             = get(g:,'glowshi_ft_smartcase', s:FALSE)
 let g:glowshi_ft_nohlsearch            = get(g:,'glowshi_ft_nohlsearch', s:TRUE)
 let g:glowshi_ft_timeoutlen            = get(g:,'glowshi_ft_timeoutlen', 0)
 let g:glowshi_ft_vcount_forced_landing = get(g:,'glowshi_ft_vcount_forced_landing', s:FALSE)
