@@ -65,7 +65,10 @@ function! s:glowshi_ft(getchar, vcount)
     try
         if a:getchar == s:TRUE
             echo 'char: '
-            let s:c = nr2char(getchar())
+            let s:c = getchar()
+            if type(s:c) == type(0)
+                let s:c = nr2char(s:c)
+            endif
             redraw
         endif
 
@@ -144,9 +147,12 @@ function! s:choose_pos(poslist, default)
 
             redraw
             if g:glowshi_ft_timeoutlen > 0
-                let c = nr2char(s:getchar_with_timeout())
+                let c = s:getchar_with_timeout()
             else
-                let c = nr2char(getchar())
+                let c = getchar()
+            endif
+            if type(c) == type(0)
+                let c = nr2char(c)
             endif
 
             call matchdelete(match_selected)
