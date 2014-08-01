@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.6
+Version: 1.2.7
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -217,6 +217,9 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.7	2014-08-01
+	- Fixed nohlsearch.
 
 1.2.6	2014-07-29
 	- Added g:glowshi_ft_smartcase.
