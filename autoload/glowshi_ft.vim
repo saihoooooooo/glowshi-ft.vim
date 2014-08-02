@@ -61,6 +61,9 @@ function! s:init(till_before, direction, visualmode)
     let &ignorecase = g:glowshi_ft_ignorecase
     let s:orig_smartcase = &smartcase
     let &smartcase = g:glowshi_ft_smartcase
+    if exists(':NoMatchParen')
+        NoMatchParen
+    endif
 endfunction
 
 function! s:glowshi_ft(getchar, vcount)
@@ -272,6 +275,9 @@ function! s:clean()
     endif
     let &ignorecase = s:orig_ignorecase
     let &smartcase = s:orig_smartcase
+    if exists(':DoMatchParen')
+        DoMatchParen
+    endif
     call s:clear_cmdline()
 endfunction
 
