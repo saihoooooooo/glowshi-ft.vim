@@ -145,9 +145,6 @@ g:glowshi_ft_nohlsearch				     *g:glowshi_ft_nohlsearch*
 		The highlight of search results is turned off temporarily. The
 		default value is "1".
 
-		Note: If your Vim has |v:hlsearch|, you can use this option
-		(vim 7.4.079 or later).
-
 g:glowshi_ft_timeoutlen				     *g:glowshi_ft_timeoutlen*
 		Time in milliseconds to determine the cursor position, like
 		|'timeoutlen'| option. The default value is "0" (no limit).
