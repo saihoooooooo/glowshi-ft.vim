@@ -1,4 +1,4 @@
-#glowshi-ft.vim
+#glowshi-ft.vim [![Build Status](https://travis-ci.org/saihoooooooo/glowshi-ft.vim.png)](https://travis-ci.org/saihoooooooo/glowshi-ft.vim)
 
 improve movement of f/t with glow shift.
 
