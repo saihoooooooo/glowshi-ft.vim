@@ -135,6 +135,7 @@ function! s:choose_pos(poslist, default)
 
     call glowshi_ft#highlight()
     let orig_cursor = s:hide_cursor()
+    call s:copy_cursor(orig_cursor)
     if g:glowshi_ft_nohlsearch == s:TRUE
         nohlsearch
     endif
@@ -284,7 +285,11 @@ endfunction
 
 function! glowshi_ft#highlight()
     if s:hlexists(g:glowshi_ft_selected_hl_link)
-        execute 'highlight! link GlowshiFtSelected ' . g:glowshi_ft_selected_hl_link
+        let glowshi_ft_selected_hl_link = g:glowshi_ft_selected_hl_link
+        if has('gui_running') && glowshi_ft_selected_hl_link ==? 'cursor'
+            let glowshi_ft_selected_hl_link = 'GlowshiFtCursor'
+        endif
+        execute 'highlight! link GlowshiFtSelected ' . glowshi_ft_selected_hl_link
     else
         execute 'highlight GlowshiFtSelected'
 \             . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
@@ -294,7 +299,11 @@ function! glowshi_ft#highlight()
     endif
 
     if s:hlexists(g:glowshi_ft_candidates_hl_link)
-        execute 'highlight! link GlowshiFtCandidates ' . g:glowshi_ft_candidates_hl_link
+        let glowshi_ft_candidates_hl_link = g:glowshi_ft_candidates_hl_link
+        if has('gui_running') && glowshi_ft_candidates_hl_link ==? 'cursor'
+            let glowshi_ft_candidates_hl_link = 'GlowshiFtCursor'
+        endif
+        execute 'highlight! link GlowshiFtCandidates ' . glowshi_ft_candidates_hl_link
     else
         execute 'highlight GlowshiFtCandidates'
 \             . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
@@ -325,10 +334,20 @@ function! s:hide_cursor()
     return orig_cursor
 endfunction
 
+function! s:copy_cursor(orig_cursor)
+    if has('gui_running')
+        if hlexists(a:orig_cursor)
+            execute 'highlight! link GlowshiFtCursor ' . a:orig_cursor
+        else
+            execute 'highlight GlowshiFtCursor ' . a:orig_cursor
+        endif
+    endif
+endfunction
+
 function! s:show_cursor(orig_cursor)
     if has('gui_running')
         if hlexists(a:orig_cursor)
-            execute 'highlight link Cursor ' . a:orig_cursor
+            execute 'highlight! link Cursor ' . a:orig_cursor
         else
             execute 'highlight Cursor ' . a:orig_cursor
         endif

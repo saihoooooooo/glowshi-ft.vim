@@ -71,7 +71,7 @@ g:glowshi_ft_selected_hl_ctermfg|Specify terminal vim color for selected positio
 g:glowshi_ft_selected_hl_ctermbg|Specify terminal vim background color for selected position.|"White"
 g:glowshi_ft_selected_hl_guifg|Specify gui vim color for selected position.|"#000000"
 g:glowshi_ft_selected_hl_guibg|Specify gui vim background color for selected position.|"#FFFFFF"
-g:glowshi_ft_selected_hl_link|When the highlight group of the value of this variable is defined, color for selected position links to it. see `:highlight-link`.<br /><br />Note: In the case of GUI, do not use "Cursor". Because setting of highlight is deleted temporarily.|""
+g:glowshi_ft_selected_hl_link|When the highlight group of the value of this variable is defined, color for selected position links to it. see `:highlight-link`.|""
 g:glowshi_ft_candidates_hl_ctermfg|Specify terminal vim color for candidates of position.|"Black"
 g:glowshi_ft_candidates_hl_ctermbg|Specify terminal vim background color for candidates of position.|"Red"
 g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of position.|"#000000"

@@ -71,5 +71,9 @@ if !hlexists('GlowshiFtCandidates')
     highlight GlowshiFtCandidates NONE
 endif
 
+if !hlexists('GlowshiFtCursor')
+    highlight GlowshiFtCursor NONE
+endif
+
 let &cpo = s:save_cpo
 unlet s:save_cpo

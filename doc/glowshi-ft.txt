@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.7
+Version: 1.2.9
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -190,9 +190,6 @@ g:glowshi_ft_selected_hl_link		       *g:glowshi_ft_selected_hl_link*
 		defined, color for selected position links to it. see
 		|:highlight-link|. The default value is "".
 
-		Note: In the case of GUI, do not use "Cursor". Because setting
-		of highlight is deleted temporarily.
-
 g:glowshi_ft_candidates_hl_ctermfg	  *g:glowshi_ft_candidates_hl_ctermfg*
 		Specify terminal vim color for candidates of position. The
 		default value is "Black".
@@ -217,6 +214,12 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
+
+1.2.9	2014-08-02
+	- Fixed the highlight of 'Cursor' to be usable in GUI.
+
+1.2.8	2014-08-02
+	- Added the test in vim-vspec.
 
 1.2.7	2014-08-01
 	- Fixed nohlsearch.
