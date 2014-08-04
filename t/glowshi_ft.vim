@@ -36,13 +36,11 @@ describe 'glowshi-ft-f'
   end
 
   it 'one target'
-    Expect Getchar() == 'a'
     silent normal fb
     Expect Getchar() == 'b'
   end
 
   it 'multi target'
-    Expect Getchar() == 'a'
     silent normal fcl\
     Expect Getchar() == 'c'
     Expect Getcol() == 33

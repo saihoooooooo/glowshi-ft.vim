@@ -1,6 +1,6 @@
 *glowshi-ft.txt*	improve movement of f/t with glow shift.
 
-Version: 1.2.10
+Version: 1.2.9
 Author : saihoooooooo <saihoooooooo@gmail.com>
 License: So-called MIT/X license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -211,9 +211,6 @@ g:glowshi_ft_candidates_hl_link		     *g:glowshi_ft_candidates_hl_link*
 
 ==============================================================================
 CHANGELOG						*glowshi-ft-changelog*
-
-1.2.10	2014-08-02
-	- Hiding 'MatchParen'.
 
 1.2.9	2014-08-02
 	- Fixed the highlight of 'Cursor' to be usable in GUI.
