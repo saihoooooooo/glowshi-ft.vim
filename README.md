@@ -45,12 +45,13 @@ $|Move to the last.
 ###Variables
 
 Use:
+
 ```vim
 let g:option_name = option_value
 ```
 to set them in your .vimrc.
 
-#### basic
+####basic
 
 Keymap|movement|default
 ---|---|---
@@ -63,7 +64,7 @@ g:glowshi_ft_vcount_forced_landing|When you pass `v:count`, it forced landing to
 g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone.|"[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key)
 g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving.|"\\&lt;ESC&gt;"
 
-#### highlight
+####highlight
 
 Keymap|movement|default
 ---|---|---
@@ -77,6 +78,28 @@ g:glowshi_ft_candidates_hl_ctermbg|Specify terminal vim background color for can
 g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of position.|"#000000"
 g:glowshi_ft_candidates_hl_guibg|Specify gui vim background color for candidates of position.|"#FF0000"
 g:glowshi_ft_candidates_hl_link|When the highlight group of the value of this variable is defined, color for candidates of position links to it. see `:highlight-link`.|""
+
+###Custom example
+
+Follows are an example of the custom.
+
+```vim
+" keymap
+let g:glowshi_ft_no_default_key_mappings = s:true
+map f <plug>(glowshi-ft-f)
+map F <plug>(glowshi-ft-F)
+map t <plug>(glowshi-ft-t)
+map T <plug>(glowshi-ft-T)
+map : <plug>(glowshi-ft-repeat)
+map , <plug>(glowshi-ft-opposite)
+
+" highlight
+let g:glowshi_ft_selected_hl_link = 'Cursor'
+let g:glowshi_ft_candidates_hl_link = 'Error'
+
+" timeout
+let g:glowshi_ft_timeoutlen = 1000
+```
 
 ## Installation
 
