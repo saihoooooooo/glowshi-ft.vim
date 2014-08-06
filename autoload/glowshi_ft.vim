@@ -5,116 +5,123 @@ set cpo&vim
 let s:TRUE = !0
 let s:FALSE = 0
 let s:DIRECTIONS = {
-\     'RIGHT': 0,
-\     'LEFT' : 1,
+\     'RIGHT': 1,
+\     'LEFT': 2,
 \ }
 
-function! glowshi_ft#gs_f(visualmode, vcount)
-    call s:init(s:FALSE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft(s:TRUE, a:vcount)
+function! glowshi_ft#gs_f()
+    call s:init()
+    call s:set_char()
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:FALSE, s:DIRECTIONS.RIGHT, s:FALSE, v:count)
 endfunction
 
-function! glowshi_ft#gs_F(visualmode, vcount)
-    call s:init(s:FALSE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft(s:TRUE, a:vcount)
+function! glowshi_ft#gs_F()
+    call s:init()
+    call s:set_char()
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:FALSE, s:DIRECTIONS.LEFT, s:FALSE, v:count)
 endfunction
 
-function! glowshi_ft#gs_t(visualmode, vcount)
-    call s:init(s:TRUE, s:DIRECTIONS.RIGHT, a:visualmode)
-    call s:glowshi_ft(s:TRUE, a:vcount)
+function! glowshi_ft#gs_t()
+    call s:init()
+    call s:set_char()
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:TRUE, s:DIRECTIONS.RIGHT, s:FALSE, v:count)
 endfunction
 
-function! glowshi_ft#gs_T(visualmode, vcount)
-    call s:init(s:TRUE, s:DIRECTIONS.LEFT, a:visualmode)
-    call s:glowshi_ft(s:TRUE, a:vcount)
+function! glowshi_ft#gs_T()
+    call s:init()
+    call s:set_char()
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:TRUE, s:DIRECTIONS.LEFT, s:FALSE, v:count)
 endfunction
 
-function! glowshi_ft#gs_repeat(visualmode, vcount)
+function! glowshi_ft#gs_repeat()
     if !exists('s:c')
         return
     endif
-    call s:init(s:till_before, s:direction, a:visualmode)
-    call s:glowshi_ft(s:FALSE, a:vcount)
+    call s:init()
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:last.till_before, s:last.direction, s:TRUE, v:count)
 endfunction
 
-function! glowshi_ft#gs_opposite(visualmode, vcount)
+function! glowshi_ft#gs_opposite()
     if !exists('s:c')
         return
     endif
-    try
-        let orig_direction = s:direction
-        call s:init(s:till_before, !s:direction, a:visualmode)
-        call s:glowshi_ft(s:FALSE, a:vcount)
-    finally
-        let s:direction = orig_direction
-    endtry
+    call s:init()
+    let direction = (s:last.direction == s:DIRECTIONS.LEFT) ? s:DIRECTIONS.RIGHT : s:DIRECTIONS.LEFT
+    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:last.till_before, direction, s:TRUE, v:count)
 endfunction
 
-function! s:init(till_before, direction, visualmode)
-    let s:till_before = a:till_before
-    let s:direction = a:direction
-    let s:visualmode = a:visualmode
+function! s:set_char()
+    echo 'char: '
+    let s:c = getchar()
+    if type(s:c) == type(0)
+        let s:c = nr2char(s:c)
+    endif
+    redraw
+endfunction
+
+function! s:init()
     let s:mode = mode(1)
-    let s:current_pos = getpos('.')
+endfunction
+
+function! glowshi_ft#gs(till_before, direction, repeat, vcount)
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
     let s:orig_smartcase = &smartcase
     let &smartcase = g:glowshi_ft_smartcase
-endfunction
+    if a:repeat == s:FALSE
+        let s:last = {
+        \     'till_before': a:till_before,
+        \     'direction': a:direction,
+        \ }
+    endif
 
-function! s:glowshi_ft(getchar, vcount)
     try
-        if a:getchar == s:TRUE
-            echo 'char: '
-            let s:c = getchar()
-            if type(s:c) == type(0)
-                let s:c = nr2char(s:c)
-            endif
-            redraw
+        let current_pos = getpos('.')
+
+        let poslist = s:get_poslist(a:till_before, a:direction, a:repeat)
+        if a:repeat == s:FALSE
+            call s:fake_ftFT_history(a:till_before, a:direction)
         endif
 
-        " cpo-;
-        if a:getchar == s:FALSE && s:till_before == s:TRUE
-\             && (v:version >= 704 || v:version == 703 && has("patch235")) && &cpo !~ ';'
-            if s:direction == s:DIRECTIONS.RIGHT
-                normal! l
-            elseif s:direction == s:DIRECTIONS.LEFT
-                normal! h
-            endif
+        call setpos('.', current_pos)
+
+        let pos = s:choose_pos(poslist, a:direction, a:vcount)
+
+        if s:mode == 'v'
+            normal! gv
         endif
 
-        let poslist = s:get_poslist()
-
-        if len(poslist) > 0
-            let pos = s:choose_pos(poslist, a:vcount)
-            if type(pos) == type([])
-                call s:set_default_ftFT_history()
-                call s:move(pos)
-            endif
+        if type(pos) == type([])
+            call s:move(a:till_before, a:direction, pos)
         endif
     finally
         call s:clean()
     endtry
 endfunction
 
-function! s:get_poslist()
+function! s:get_poslist(till_before, direction, repeat)
+    " care of cpo-;
+    if a:repeat == s:TRUE && a:till_before == s:TRUE
+    \     && (v:version >= 704 || v:version == 703 && has("patch235")) && &cpo !~ ';'
+        if a:direction == s:DIRECTIONS.RIGHT
+            normal! l
+        elseif a:direction == s:DIRECTIONS.LEFT
+            normal! h
+        endif
+    endif
+
     let poslist = []
-    let flag = (s:direction == s:DIRECTIONS.LEFT) ? 'b' : ''
+    let flag = (a:direction == s:DIRECTIONS.LEFT) ? 'b' : ''
     while search("\\V" . s:c, flag, line('.'))
         call add(poslist, getpos('.'))
     endwhile
-    call setpos('.', s:current_pos)
     return poslist
 endfunction
 
-function! s:choose_pos(poslist, default)
-    if len(a:poslist) == 1
-        return (a:default <= 1) ? a:poslist[0] : s:FALSE
-    endif
-
-    if s:direction == s:DIRECTIONS.RIGHT
+function! s:choose_pos(poslist, direction, default)
+    if a:direction == s:DIRECTIONS.RIGHT
         let selected = (a:default <= 1) ? 0 : a:default - 1
-    elseif s:direction == s:DIRECTIONS.LEFT
+    elseif a:direction == s:DIRECTIONS.LEFT
         call reverse(a:poslist)
         let selected = (a:default <= 1) ? len(a:poslist) - 1 : len(a:poslist) - a:default
     endif
@@ -123,11 +130,9 @@ function! s:choose_pos(poslist, default)
         return s:FALSE
     endif
 
-    if a:default > 0 && g:glowshi_ft_vcount_forced_landing == s:TRUE
+    if len(a:poslist) == 1 || a:default > 0 && g:glowshi_ft_vcount_forced_landing == s:TRUE
         return a:poslist[selected]
     endif
-
-    let vcount = 0
 
     call glowshi_ft#highlight()
     let orig_cursor = s:hide_cursor()
@@ -136,9 +141,10 @@ function! s:choose_pos(poslist, default)
         nohlsearch
     endif
 
-    echo 'char: ' . s:c
-
     try
+        let vcount = 0
+        echo 'char: ' . s:c
+
         while s:TRUE
             let match_candidates = matchadd('GlowshiFtCandidates', s:regexp_candidates(a:poslist))
             let match_selected = matchadd('GlowshiFtSelected', s:regexp(a:poslist[selected]))
@@ -223,39 +229,38 @@ function! s:getchar_with_timeout()
     return key
 endfunction
 
-function! s:set_default_ftFT_history()
-    if s:direction == s:DIRECTIONS.RIGHT
-        if s:till_before == s:FALSE
+function! s:fake_ftFT_history(till_before, direction)
+    if a:direction == s:DIRECTIONS.RIGHT
+        if a:till_before == s:FALSE
             execute 'normal! f' . s:c
-        elseif s:till_before == s:TRUE
+        elseif a:till_before == s:TRUE
             execute 'normal! t' . s:c
         endif
-    elseif s:direction == s:DIRECTIONS.LEFT
-        if s:till_before == s:FALSE
+    elseif a:direction == s:DIRECTIONS.LEFT
+        if a:till_before == s:FALSE
             execute 'normal! F' . s:c
-        elseif s:till_before == s:TRUE
+        elseif a:till_before == s:TRUE
             execute 'normal! T' . s:c
         endif
     endif
-    call setpos('.', s:current_pos)
 endfunction
 
-function! s:move(pos)
+function! s:move(till_before, direction, pos)
     let pos = a:pos[:]
-    if s:till_before == s:TRUE
-        if s:direction == s:DIRECTIONS.RIGHT
+    if a:till_before == s:TRUE
+        if a:direction == s:DIRECTIONS.RIGHT
             let pos[2] -=1
-        elseif s:direction == s:DIRECTIONS.LEFT
+        elseif a:direction == s:DIRECTIONS.LEFT
             let pos[2] +=1
         endif
     endif
 
     if s:mode == 'no'
-        if s:direction == s:DIRECTIONS.LEFT
+        if a:direction == s:DIRECTIONS.LEFT
             normal! h
         endif
         normal! v
-    elseif s:visualmode == s:TRUE
+    elseif s:mode == 'v'
         normal! gv
     endif
 
@@ -263,9 +268,6 @@ function! s:move(pos)
 endfunction
 
 function! s:clean()
-    if getpos('.') == s:current_pos && s:visualmode == s:TRUE
-        normal! gv
-    endif
     let &ignorecase = s:orig_ignorecase
     let &smartcase = s:orig_smartcase
     call s:clear_cmdline()
@@ -288,10 +290,10 @@ function! glowshi_ft#highlight()
         execute 'highlight! link GlowshiFtSelected ' . glowshi_ft_selected_hl_link
     else
         execute 'highlight GlowshiFtSelected'
-\             . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
-\             . ' guifg=' . g:glowshi_ft_selected_hl_guifg
-\             . ' ctermbg=' . g:glowshi_ft_selected_hl_ctermbg
-\             . ' guibg=' . g:glowshi_ft_selected_hl_guibg
+        \     . ' ctermfg=' . g:glowshi_ft_selected_hl_ctermfg
+        \     . ' guifg=' . g:glowshi_ft_selected_hl_guifg
+        \     . ' ctermbg=' . g:glowshi_ft_selected_hl_ctermbg
+        \     . ' guibg=' . g:glowshi_ft_selected_hl_guibg
     endif
 
     if s:hlexists(g:glowshi_ft_candidates_hl_link)
@@ -302,10 +304,10 @@ function! glowshi_ft#highlight()
         execute 'highlight! link GlowshiFtCandidates ' . glowshi_ft_candidates_hl_link
     else
         execute 'highlight GlowshiFtCandidates'
-\             . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
-\             . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
-\             . ' ctermbg=' . g:glowshi_ft_candidates_hl_ctermbg
-\             . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
+        \     . ' ctermfg=' . g:glowshi_ft_candidates_hl_ctermfg
+        \     . ' guifg=' . g:glowshi_ft_candidates_hl_guifg
+        \     . ' ctermbg=' . g:glowshi_ft_candidates_hl_ctermbg
+        \     . ' guibg=' . g:glowshi_ft_candidates_hl_guibg
     endif
 endfunction
 

@@ -27,19 +27,12 @@ let g:glowshi_ft_candidates_hl_guifg   = get(g:,'glowshi_ft_candidates_hl_guifg'
 let g:glowshi_ft_candidates_hl_guibg   = get(g:,'glowshi_ft_candidates_hl_guibg', '#FF0000')
 let g:glowshi_ft_candidates_hl_link    = get(g:,'glowshi_ft_candidates_hl_link', '')
 
-noremap  <silent><plug>(glowshi-ft-f)        :<C-u>call glowshi_ft#gs_f(0, v:count)<CR>
-noremap  <silent><plug>(glowshi-ft-F)        :<C-u>call glowshi_ft#gs_F(0, v:count)<CR>
-noremap  <silent><plug>(glowshi-ft-t)        :<C-u>call glowshi_ft#gs_t(0, v:count)<CR>
-noremap  <silent><plug>(glowshi-ft-T)        :<C-u>call glowshi_ft#gs_T(0, v:count)<CR>
-noremap  <silent><plug>(glowshi-ft-repeat)   :<C-u>call glowshi_ft#gs_repeat(0, v:count)<CR>
-noremap  <silent><plug>(glowshi-ft-opposite) :<C-u>call glowshi_ft#gs_opposite(0, v:count)<CR>
-
-xnoremap <expr><silent><plug>(glowshi-ft-f)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_f(!0, %d)\<CR>", v:count)
-xnoremap <expr><silent><plug>(glowshi-ft-F)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_F(!0, %d)\<CR>", v:count)
-xnoremap <expr><silent><plug>(glowshi-ft-t)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_t(!0, %d)\<CR>", v:count)
-xnoremap <expr><silent><plug>(glowshi-ft-T)        printf("\<ESC>:\<C-u>call glowshi_ft#gs_T(!0, %d)\<CR>", v:count)
-xnoremap <expr><silent><plug>(glowshi-ft-repeat)   printf("\<ESC>:\<C-u>call glowshi_ft#gs_repeat(!0, %d)\<CR>", v:count)
-xnoremap <expr><silent><plug>(glowshi-ft-opposite) printf("\<ESC>:\<C-u>call glowshi_ft#gs_opposite(!0, %d)\<CR>", v:count)
+noremap  <expr><silent><plug>(glowshi-ft-f)        glowshi_ft#gs_f()
+noremap  <expr><silent><plug>(glowshi-ft-F)        glowshi_ft#gs_F()
+noremap  <expr><silent><plug>(glowshi-ft-t)        glowshi_ft#gs_t()
+noremap  <expr><silent><plug>(glowshi-ft-T)        glowshi_ft#gs_T()
+noremap  <expr><silent><plug>(glowshi-ft-repeat)   glowshi_ft#gs_repeat()
+noremap  <expr><silent><plug>(glowshi-ft-opposite) glowshi_ft#gs_opposite()
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:FALSE)
     try
