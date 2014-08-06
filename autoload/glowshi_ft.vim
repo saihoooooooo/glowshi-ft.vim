@@ -56,7 +56,6 @@ function! s:init(till_before, direction, visualmode)
     let s:visualmode = a:visualmode
     let s:mode = mode(1)
     let s:current_pos = getpos('.')
-    let s:feedkey = ''
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
     let s:orig_smartcase = &smartcase
@@ -91,9 +90,6 @@ function! s:glowshi_ft(getchar, vcount)
             if type(pos) == type([])
                 call s:set_default_ftFT_history()
                 call s:move(pos)
-                if s:feedkey != ''
-                    call feedkeys(s:feedkey)
-                endif
             endif
         endif
     finally
@@ -186,7 +182,7 @@ function! s:choose_pos(poslist, default)
                 return s:FALSE
             else
                 if c != ''
-                    let s:feedkey = ((vcount > 1) ? vcount : '') . c
+                    call feedkeys((vcount > 1 ? vcount : '') . c)
                 endif
                 break
             endif
