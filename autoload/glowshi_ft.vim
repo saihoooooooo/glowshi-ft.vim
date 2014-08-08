@@ -24,7 +24,7 @@ endfunction
 
 function! glowshi_ft#map_repeat(opposite)
     if !exists('s:last')
-        return
+        return "\\<Nop>"
     endif
     call s:init()
     let direction = s:last.direction
