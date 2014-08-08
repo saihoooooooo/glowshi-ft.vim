@@ -9,61 +9,44 @@ let s:DIRECTIONS = {
 \     'LEFT': 2,
 \ }
 
-function! glowshi_ft#gs_f()
+function! glowshi_ft#map(till_before, direction)
     call s:init()
-    call s:set_char()
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:FALSE, s:DIRECTIONS.RIGHT, s:FALSE, v:count)
-endfunction
 
-function! glowshi_ft#gs_F()
-    call s:init()
-    call s:set_char()
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:FALSE, s:DIRECTIONS.LEFT, s:FALSE, v:count)
-endfunction
-
-function! glowshi_ft#gs_t()
-    call s:init()
-    call s:set_char()
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:TRUE, s:DIRECTIONS.RIGHT, s:FALSE, v:count)
-endfunction
-
-function! glowshi_ft#gs_T()
-    call s:init()
-    call s:set_char()
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:TRUE, s:DIRECTIONS.LEFT, s:FALSE, v:count)
-endfunction
-
-function! glowshi_ft#gs_repeat()
-    if !exists('s:c')
-        return
-    endif
-    call s:init()
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:last.till_before, s:last.direction, s:TRUE, v:count)
-endfunction
-
-function! glowshi_ft#gs_opposite()
-    if !exists('s:c')
-        return
-    endif
-    call s:init()
-    let direction = (s:last.direction == s:DIRECTIONS.LEFT) ? s:DIRECTIONS.RIGHT : s:DIRECTIONS.LEFT
-    return printf("%s:\<C-u>call glowshi_ft#gs(%d, %d, %d, %d)\<CR>", s:mode == 'v' ? "\<ESC>" : '', s:last.till_before, direction, s:TRUE, v:count)
-endfunction
-
-function! s:set_char()
     echo 'char: '
     let s:c = getchar()
     if type(s:c) == type(0)
         let s:c = nr2char(s:c)
     endif
     redraw
+
+    return s:map(a:till_before, a:direction, s:FALSE)
+endfunction
+
+function! glowshi_ft#map_repeat(opposite)
+    if !exists('s:last')
+        return
+    endif
+    call s:init()
+    let direction = s:last.direction
+    if a:opposite == s:TRUE
+        let direction = (direction == s:DIRECTIONS.LEFT) ? s:DIRECTIONS.RIGHT : s:DIRECTIONS.LEFT
+    endif
+    return s:map(s:last.till_before, direction, s:TRUE)
+endfunction
+
+function! s:map(till_before, direction, repeat)
+    return printf(":\<C-u>call glowshi_ft#main(%d, %d, %d)\<CR>", a:till_before, a:direction, a:repeat)
 endfunction
 
 function! s:init()
     let s:mode = mode(1)
+    if s:mode == 'v'
+        let s:v_cursor_pos = getpos('.')
+    endif
 endfunction
 
-function! glowshi_ft#gs(till_before, direction, repeat, vcount)
+function! glowshi_ft#main(till_before, direction, repeat)
+    let vcount = v:count
     let s:orig_ignorecase = &ignorecase
     let &ignorecase = g:glowshi_ft_ignorecase
     let s:orig_smartcase = &smartcase
@@ -76,16 +59,18 @@ function! glowshi_ft#gs(till_before, direction, repeat, vcount)
     endif
 
     try
-        let current_pos = getpos('.')
+        " Return the position of the cursor in visualmode.
+        if s:mode == 'v'
+            call setpos('.', s:v_cursor_pos)
+        endif
 
         let poslist = s:get_poslist(a:till_before, a:direction, a:repeat)
+
         if a:repeat == s:FALSE
             call s:fake_ftFT_history(a:till_before, a:direction)
         endif
 
-        call setpos('.', current_pos)
-
-        let pos = s:choose_pos(poslist, a:direction, a:vcount)
+        let pos = s:choose_pos(poslist, a:direction, vcount)
 
         if s:mode == 'v'
             normal! gv
@@ -100,7 +85,9 @@ function! glowshi_ft#gs(till_before, direction, repeat, vcount)
 endfunction
 
 function! s:get_poslist(till_before, direction, repeat)
-    " care of cpo-;
+    let current_pos = getpos('.')
+
+    " Care of cpo-;
     if a:repeat == s:TRUE && a:till_before == s:TRUE
     \     && (v:version >= 704 || v:version == 703 && has("patch235")) && &cpo !~ ';'
         if a:direction == s:DIRECTIONS.RIGHT
@@ -115,6 +102,8 @@ function! s:get_poslist(till_before, direction, repeat)
     while search("\\V" . s:c, flag, line('.'))
         call add(poslist, getpos('.'))
     endwhile
+
+    call setpos('.', current_pos)
     return poslist
 endfunction
 
@@ -230,6 +219,8 @@ function! s:getchar_with_timeout()
 endfunction
 
 function! s:fake_ftFT_history(till_before, direction)
+    let current_pos = getpos('.')
+
     if a:direction == s:DIRECTIONS.RIGHT
         if a:till_before == s:FALSE
             execute 'normal! f' . s:c
@@ -243,6 +234,8 @@ function! s:fake_ftFT_history(till_before, direction)
             execute 'normal! T' . s:c
         endif
     endif
+
+    call setpos('.', current_pos)
 endfunction
 
 function! s:move(till_before, direction, pos)
@@ -260,8 +253,6 @@ function! s:move(till_before, direction, pos)
             normal! h
         endif
         normal! v
-    elseif s:mode == 'v'
-        normal! gv
     endif
 
     call setpos('.', pos)

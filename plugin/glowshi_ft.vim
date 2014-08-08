@@ -6,8 +6,24 @@ let g:loaded_glowshi_ft = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:TRUE  = !0
+let s:TRUE = !0
 let s:FALSE = 0
+let s:DIRECTIONS = {
+\     'RIGHT': 1,
+\     'LEFT': 2,
+\ }
+
+function! s:_(name)
+    let keys = split(a:name, '\.')
+    let result = s:
+    for key in keys
+        let tmp = result[key]
+        unlet result
+        let result = tmp
+        unlet tmp
+    endfor
+    return result
+endfunction
 
 let g:glowshi_ft_ignorecase            = get(g:,'glowshi_ft_ignorecase', s:FALSE)
 let g:glowshi_ft_smartcase             = get(g:,'glowshi_ft_smartcase', s:FALSE)
@@ -27,12 +43,12 @@ let g:glowshi_ft_candidates_hl_guifg   = get(g:,'glowshi_ft_candidates_hl_guifg'
 let g:glowshi_ft_candidates_hl_guibg   = get(g:,'glowshi_ft_candidates_hl_guibg', '#FF0000')
 let g:glowshi_ft_candidates_hl_link    = get(g:,'glowshi_ft_candidates_hl_link', '')
 
-noremap  <expr><silent><plug>(glowshi-ft-f)        glowshi_ft#gs_f()
-noremap  <expr><silent><plug>(glowshi-ft-F)        glowshi_ft#gs_F()
-noremap  <expr><silent><plug>(glowshi-ft-t)        glowshi_ft#gs_t()
-noremap  <expr><silent><plug>(glowshi-ft-T)        glowshi_ft#gs_T()
-noremap  <expr><silent><plug>(glowshi-ft-repeat)   glowshi_ft#gs_repeat()
-noremap  <expr><silent><plug>(glowshi-ft-opposite) glowshi_ft#gs_opposite()
+noremap  <expr><silent><plug>(glowshi-ft-f)        glowshi_ft#map(<SID>_('FALSE'), <SID>_('DIRECTIONS.RIGHT'))
+noremap  <expr><silent><plug>(glowshi-ft-F)        glowshi_ft#map(<SID>_('FALSE'), <SID>_('DIRECTIONS.LEFT'))
+noremap  <expr><silent><plug>(glowshi-ft-t)        glowshi_ft#map(<SID>_('TRUE'), <SID>_('DIRECTIONS.RIGHT'))
+noremap  <expr><silent><plug>(glowshi-ft-T)        glowshi_ft#map(<SID>_('TRUE'), <SID>_('DIRECTIONS.LEFT'))
+noremap  <expr><silent><plug>(glowshi-ft-repeat)   glowshi_ft#map_repeat(<SID>_('FALSE'))
+noremap  <expr><silent><plug>(glowshi-ft-opposite) glowshi_ft#map_repeat(<SID>_('TRUE'))
 
 if !get(g:, 'glowshi_ft_no_default_key_mappings', s:FALSE)
     try
