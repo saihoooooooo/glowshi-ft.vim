@@ -1,18 +1,18 @@
-#glowshi-ft.vim [![Build Status](https://travis-ci.org/saihoooooooo/glowshi-ft.vim.png)](https://travis-ci.org/saihoooooooo/glowshi-ft.vim)
+# glowshi-ft.vim [![Build Status](https://travis-ci.org/saihoooooooo/glowshi-ft.vim.png)](https://travis-ci.org/saihoooooooo/glowshi-ft.vim)
 
 improve movement of f/t with glow shift.
 
-##Introduction
+## Introduction
 
 glowshi-ft is a Vim plugin to improve movement of f/t. The basic behavior is the same, but when there are multiple targets in the current line, you are able to choose and shift to candidates of position which glow.
 
-##Screencapture
+## Screencapture
 
 ![screencapture](http://gifzo.net/JEJkjm4LKP.gif)
 
-##Interface
+## Interface
 
-###Key mappings
+### Key mappings
 
 glowshi-ft's key mappings are defined for first action only. see [ORIGINAL KEY MAPPINGS][4] about another operation.
 
@@ -25,7 +25,7 @@ T{char}|&lt;Plug&gt;(glowshi-ft-T){char}|Search for till after {char} towards le
 ;|&lt;Plug&gt;(glowshi-ft-repeat)|Repeat latest, like `;`.
 ,|&lt;Plug&gt;(glowshi-ft-opposite)|Repeat latest in opposite direction, like `,`.
 
-###Original key mappings
+### Original key mappings
 
 Original mechanism judges the following key and controls it, if current line has multiple target. (the following key mappings don't use `:map` command).
 
@@ -40,9 +40,9 @@ $|Move to the last.
 &lt;ESC&gt;|Cancel the moving. This key is modifiable. see `g:glowshi_ft_cancel_key`.
 [other keys]|In case inputting other keys, fix the position at the time, and take the state that typed the key. For example, if you press "i", you will insert mode on the position.
 
-##Settings
+## Settings
 
-###Variables
+### Variables
 
 Use:
 
@@ -51,7 +51,7 @@ let g:option_name = option_value
 ```
 to set them in your .vimrc.
 
-####basic
+#### basic
 
 Keymap|movement|default
 ---|---|---
@@ -64,7 +64,7 @@ g:glowshi_ft_vcount_forced_landing|When you pass `v:count`, it forced landing to
 g:glowshi_ft_fix_key|When the same key as the value that you set for this variable is pressed, fix the position under the cursor. Regular expression is used in the same judgment of the key. This variable can not appoint modifier key alone.|"[\\&lt;NL&gt;\\&lt;CR&gt;]" (enter key)
 g:glowshi_ft_cancel_key|You can specify the key in the regular expression like `g:glowshi_ft_fix_key` option in this variable, but the behavior of matching is the cancellation of moving.|"\\&lt;ESC&gt;"
 
-####highlight
+#### highlight
 
 Keymap|movement|default
 ---|---|---
@@ -79,7 +79,7 @@ g:glowshi_ft_candidates_hl_guifg|Specify gui vim color for candidates of positio
 g:glowshi_ft_candidates_hl_guibg|Specify gui vim background color for candidates of position.|"#FF0000"
 g:glowshi_ft_candidates_hl_link|When the highlight group of the value of this variable is defined, color for candidates of position links to it. see `:highlight-link`.|""
 
-###Custom example
+### Custom example
 
 Follows are an example of the custom.
 
